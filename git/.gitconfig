@@ -1,0 +1,31 @@
+[user]
+    name = James Laska
+    email = 1051173+jlaska@users.noreply.github.com
+    signingkey = 0x07E5ACD7B3165BD3
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+[alias]
+    quicklog = log --pretty=format:"%h %cr %cn %Cgreen%s%Creset"
+    ci = commit -v
+    slog = "!sh -c 'git log --no-merges $1 `ls | grep -v ^po`' -"
+[core]
+    editor = vim
+[push]
+    default = simple
+[help]
+    autocorrect = 1
+[commit]
+    gpgsign = true
+[pull]
+    rebase = true
+[oh-my-zsh]
+    hide-status = 1
+    hide-info = 1
+    hide-dirty = 1
+[tag]
+    gpgSign = true
+[includeIf "hasconfig:remote.*.url:git@gitlab.cee.redhat.com:*/**"]
+    path = ~/.gitconfig-redhat

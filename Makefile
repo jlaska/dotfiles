@@ -1,11 +1,13 @@
 PACKAGES           := $(shell find . -mindepth 1 -maxdepth 1 -type d -not -name '.*' | sed 's|./||')
 OMZ_PLUGINS        := $(HOME)/.oh-my-zsh/custom/plugins
 OMZ_PLUGIN_TARGETS := $(addprefix $(OMZ_PLUGINS)/,zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
+VIM_PACK           := $(HOME)/.vim/pack/plugins/start
+VIM_PLUGIN_TARGETS := $(addprefix $(VIM_PACK)/,ansible-vim ctrlp.vim editorconfig-vim flake8-vim syntastic vim-base64 vim-fugitive vim-gnupg vim-markdown vim-python-pep8-indent)
 BREW_PREFIX        := $(shell brew --prefix 2>/dev/null)
 
 .DEFAULT_GOAL := help
 
-.PHONY: help deps setup setup-omz-plugins lint pre-commit check
+.PHONY: help deps setup setup-omz-plugins setup-vim-plugins lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -22,7 +24,7 @@ $(BREW_PREFIX)/bin/pre-commit:
 
 # setup has a recipe only for the stow loop — stow is idempotent so safe to always run.
 # All other prerequisites are real files; Make skips them when already up-to-date.
-setup: deps setup-omz-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages (run after deps)
+setup: deps setup-omz-plugins setup-vim-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages (run after deps)
 	@for pkg in $(PACKAGES); do \
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done
@@ -43,6 +45,38 @@ $(OMZ_PLUGINS)/zsh-completions:
 
 $(OMZ_PLUGINS)/zsh-syntax-highlighting:
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $@
+
+setup-vim-plugins: $(VIM_PLUGIN_TARGETS) ## Clone vim native packages if missing
+
+$(VIM_PACK)/ansible-vim:
+	git clone https://github.com/pearofducks/ansible-vim.git $@
+
+$(VIM_PACK)/ctrlp.vim:
+	git clone https://github.com/kien/ctrlp.vim.git $@
+
+$(VIM_PACK)/editorconfig-vim:
+	git clone https://github.com/editorconfig/editorconfig-vim.git $@
+
+$(VIM_PACK)/flake8-vim:
+	git clone https://github.com/andviro/flake8-vim.git $@
+
+$(VIM_PACK)/syntastic:
+	git clone https://github.com/scrooloose/syntastic.git $@
+
+$(VIM_PACK)/vim-base64:
+	git clone https://github.com/christianrondeau/vim-base64.git $@
+
+$(VIM_PACK)/vim-fugitive:
+	git clone https://github.com/tpope/vim-fugitive.git $@
+
+$(VIM_PACK)/vim-gnupg:
+	git clone https://github.com/jamessan/vim-gnupg.git $@
+
+$(VIM_PACK)/vim-markdown:
+	git clone https://github.com/plasticboy/vim-markdown.git $@
+
+$(VIM_PACK)/vim-python-pep8-indent:
+	git clone https://github.com/hynek/vim-python-pep8-indent.git $@
 
 lint: ## Run style and format linters
 	pre-commit run trailing-whitespace --all-files

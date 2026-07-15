@@ -33,6 +33,8 @@ history.*
 
 # Auto-provisioned content
 plugins/
+pack/
+bundle/
 vendor/
 node_modules/
 
@@ -50,3 +52,7 @@ Thumbs.db
 .idea/
 .vscode/
 *.orig
+
+# Vim runtime files
+*.spl
+.netrwhist

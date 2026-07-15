@@ -53,6 +53,8 @@ stow --delete -t "$HOME" zsh
 | Package | Files managed |
 |---------|--------------|
 | 🤖 [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
+| 🐙 [Git](https://git-scm.com/) | `~/.gitconfig` |
+| 📝 [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
 | 🐚 [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,yubikey}.zsh` |
 
 > **Oh My Zsh plugin prerequisites** — the following must be cloned once per machine (`make setup-omz-plugins` handles this):
@@ -60,6 +62,21 @@ stow --delete -t "$HOME" zsh
 > - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 > - [zsh-completions](https://github.com/zsh-users/zsh-completions)
 > - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+
+<!-- -->
+
+> **Vim plugin prerequisites** — plugins use vim's native package system (`~/.vim/pack/`). The following are cloned once per machine (`make setup-vim-plugins` handles this):
+>
+> - [ansible-vim](https://github.com/pearofducks/ansible-vim)
+> - [ctrlp.vim](https://github.com/kien/ctrlp.vim)
+> - [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim)
+> - [flake8-vim](https://github.com/andviro/flake8-vim)
+> - [syntastic](https://github.com/scrooloose/syntastic)
+> - [vim-base64](https://github.com/christianrondeau/vim-base64)
+> - [vim-fugitive](https://github.com/tpope/vim-fugitive)
+> - [vim-gnupg](https://github.com/jamessan/vim-gnupg)
+> - [vim-markdown](https://github.com/plasticboy/vim-markdown)
+> - [vim-python-pep8-indent](https://github.com/hynek/vim-python-pep8-indent)
 
 ## What is not tracked
 
