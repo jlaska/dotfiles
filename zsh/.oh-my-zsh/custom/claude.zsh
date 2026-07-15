@@ -1,0 +1,8 @@
+# Vertex Setup
+export ANTHROPIC_VERTEX_PROJECT_ID="REDACTED"
+export CLOUD_ML_REGION=global
+export CLAUDE_CODE_USE_VERTEX=1
+export ANTHROPIC_MODEL="opusplan"
+export ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6"
+export ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-6[1m]"
+export ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-haiku-4-6"

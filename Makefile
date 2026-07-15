@@ -1,13 +1,14 @@
-PACKAGES := $(shell find . -mindepth 1 -maxdepth 1 -type d -not -name '.*' | sed 's|./||')
+PACKAGES    := $(shell find . -mindepth 1 -maxdepth 1 -type d -not -name '.*' | sed 's|./||')
+OMZ_PLUGINS := $(HOME)/.oh-my-zsh/custom/plugins
 
 .DEFAULT_GOAL := help
 
-.PHONY: help setup lint pre-commit check
+.PHONY: help setup setup-omz-plugins lint pre-commit check
 
 help: ## Show available targets
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-setup: ## Install prerequisites and prepare git hooks
+setup: setup-omz-plugins ## Install prerequisites, clone plugins, and stow all packages
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
 	@command -v stow >/dev/null || brew install stow
 	@command -v pre-commit >/dev/null || brew install pre-commit
@@ -16,6 +17,14 @@ setup: ## Install prerequisites and prepare git hooks
 	@for pkg in $(PACKAGES); do \
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done
+
+setup-omz-plugins: ## Clone oh-my-zsh third-party plugins if missing
+	@test -d $(OMZ_PLUGINS)/zsh-autosuggestions || \
+		git clone https://github.com/zsh-users/zsh-autosuggestions $(OMZ_PLUGINS)/zsh-autosuggestions
+	@test -d $(OMZ_PLUGINS)/zsh-completions || \
+		git clone https://github.com/zsh-users/zsh-completions $(OMZ_PLUGINS)/zsh-completions
+	@test -d $(OMZ_PLUGINS)/zsh-syntax-highlighting || \
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $(OMZ_PLUGINS)/zsh-syntax-highlighting
 
 lint: ## Run style and format linters
 	pre-commit run trailing-whitespace --all-files
