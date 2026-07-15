@@ -7,10 +7,10 @@ Personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
 ```bash
 git clone git@github.com:jlaska/dotfiles.git
 cd dotfiles
-./install.sh
+make setup
 ```
 
-`install.sh` installs Stow (via Homebrew) if absent, then stows every top-level package directory targeting `$HOME`.
+`make setup` installs Stow and pre-commit (via Homebrew) if absent, installs git hooks, and stows every top-level package directory targeting `$HOME`.
 
 ## How it works
 
