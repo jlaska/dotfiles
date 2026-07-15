@@ -7,12 +7,12 @@ BREW_PREFIX        := $(shell brew --prefix 2>/dev/null)
 
 .DEFAULT_GOAL := help
 
-.PHONY: help deps setup setup-omz-plugins setup-vim-plugins lint pre-commit check
+.PHONY: help install-deps install install-omz-plugins install-vim-plugins lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-deps: $(BREW_PREFIX)/bin/stow $(BREW_PREFIX)/bin/pre-commit ## Install system dependencies via Homebrew
+install-deps: $(BREW_PREFIX)/bin/stow $(BREW_PREFIX)/bin/pre-commit ## Install system dependencies via Homebrew
 
 $(BREW_PREFIX)/bin/stow:
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
@@ -22,9 +22,9 @@ $(BREW_PREFIX)/bin/pre-commit:
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
 	brew install pre-commit
 
-# setup has a recipe only for the stow loop — stow is idempotent so safe to always run.
+# install has a recipe only for the stow loop — stow is idempotent so safe to always run.
 # All other prerequisites are real files; Make skips them when already up-to-date.
-setup: deps setup-omz-plugins setup-vim-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages (run after deps)
+install: install-deps install-omz-plugins install-vim-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages (run after install-deps)
 	@for pkg in $(PACKAGES); do \
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done
@@ -35,7 +35,7 @@ setup: deps setup-omz-plugins setup-vim-plugins .git/hooks/pre-commit .secrets.b
 .secrets.baseline:
 	detect-secrets scan > $@
 
-setup-omz-plugins: $(OMZ_PLUGIN_TARGETS) ## Clone oh-my-zsh third-party plugins if missing
+install-omz-plugins: $(OMZ_PLUGIN_TARGETS) ## Clone oh-my-zsh third-party plugins if missing
 
 $(OMZ_PLUGINS)/zsh-autosuggestions:
 	git clone https://github.com/zsh-users/zsh-autosuggestions $@
@@ -46,7 +46,7 @@ $(OMZ_PLUGINS)/zsh-completions:
 $(OMZ_PLUGINS)/zsh-syntax-highlighting:
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $@
 
-setup-vim-plugins: $(VIM_PLUGIN_TARGETS) ## Clone vim native packages if missing
+install-vim-plugins: $(VIM_PLUGIN_TARGETS) ## Clone vim native packages if missing
 
 $(VIM_PACK)/ansible-vim:
 	git clone https://github.com/pearofducks/ansible-vim.git $@
