@@ -39,3 +39,8 @@ fi
 if [ -d "$HOME/.cargo/bin" ]; then
   export PATH=$HOME/.cargo/bin:$PATH
 fi
+
+# Obsidian
+if [ -d "/Applications/Obsidian.app/Contents/MacOS" ]; then
+  export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+fi

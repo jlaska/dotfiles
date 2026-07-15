@@ -53,7 +53,12 @@ stow --delete -t "$HOME" zsh
 | Package | Files managed |
 |---------|--------------|
 | 🤖 [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
-| 🐙 [Git](https://git-scm.com/) | `~/.gitconfig` |
+| 🌐 [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |
+| 🐙 [Git](https://git-scm.com/) | `~/.gitconfig`, `~/.gitconfig-redhat`, `~/.config/git/ignore` |
+| 🐱 [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
+| 🔑 [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,gpg-agent,dirmngr}.conf` |
+| 📦 [npm](https://www.npmjs.com/) | `~/.npmrc` |
+| 🔒 [SSH](https://www.openssh.com/) | `~/.ssh/config` |
 | 📝 [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
 | 🐚 [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,yubikey}.zsh` |
 

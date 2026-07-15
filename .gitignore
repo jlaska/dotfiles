@@ -15,6 +15,20 @@
 .env.*
 !.env.example
 
+# GnuPG runtime/key material (only .conf files are tracked)
+*.kbx
+*.kbx~
+random_seed
+S.gpg-agent*
+private-keys-v1.d/
+
+# SSH key material and runtime files (only config is tracked)
+known_hosts*
+authorized_keys
+
+# GitHub CLI auth (only config.yml is tracked)
+hosts.yml
+
 # Machine-local overrides
 *.local
 *.local.json

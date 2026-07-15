@@ -1,4 +1,10 @@
 [allowlist]
-  description = "GPG signing key ID is a public key fingerprint, not a secret"
-  regexes = ['''signingkey\s*=\s*0x[0-9A-Fa-f]+''']
-  paths = ['''git/\.gitconfig''']
+  description = "GPG key IDs and fingerprints are public identifiers, not secrets"
+  regexes = [
+    '''signingkey\s*=\s*0x[0-9A-Fa-f]+''',
+    '''default-key\s+[0-9A-Fa-f]{40}''',
+  ]
+  paths = [
+    '''git/\.gitconfig''',
+    '''gnupg/\.gnupg/gpg\.conf''',
+  ]
