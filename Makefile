@@ -1,23 +1,37 @@
 PACKAGES           := $(shell find . -mindepth 1 -maxdepth 1 -type d -not -name '.*' | sed 's|./||')
 OMZ_PLUGINS        := $(HOME)/.oh-my-zsh/custom/plugins
 OMZ_PLUGIN_TARGETS := $(addprefix $(OMZ_PLUGINS)/,zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
+BREW_PREFIX        := $(shell brew --prefix 2>/dev/null)
 
 .DEFAULT_GOAL := help
 
-.PHONY: help setup setup-omz-plugins lint pre-commit check
+.PHONY: help deps setup setup-omz-plugins lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-setup: setup-omz-plugins ## Install prerequisites, clone plugins, and stow all packages
+deps: $(BREW_PREFIX)/bin/stow $(BREW_PREFIX)/bin/pre-commit ## Install system dependencies via Homebrew
+
+$(BREW_PREFIX)/bin/stow:
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
-	@command -v stow >/dev/null || brew install stow
-	@command -v pre-commit >/dev/null || brew install pre-commit
-	pre-commit install
-	@test -f .secrets.baseline || detect-secrets scan > .secrets.baseline
+	brew install stow
+
+$(BREW_PREFIX)/bin/pre-commit:
+	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
+	brew install pre-commit
+
+# setup has a recipe only for the stow loop — stow is idempotent so safe to always run.
+# All other prerequisites are real files; Make skips them when already up-to-date.
+setup: deps setup-omz-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages (run after deps)
 	@for pkg in $(PACKAGES); do \
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done
+
+.git/hooks/pre-commit: $(BREW_PREFIX)/bin/pre-commit
+	pre-commit install
+
+.secrets.baseline:
+	detect-secrets scan > $@
 
 setup-omz-plugins: $(OMZ_PLUGIN_TARGETS) ## Clone oh-my-zsh third-party plugins if missing
 
