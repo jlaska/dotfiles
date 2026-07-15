@@ -1,5 +1,6 @@
-PACKAGES    := $(shell find . -mindepth 1 -maxdepth 1 -type d -not -name '.*' | sed 's|./||')
-OMZ_PLUGINS := $(HOME)/.oh-my-zsh/custom/plugins
+PACKAGES           := $(shell find . -mindepth 1 -maxdepth 1 -type d -not -name '.*' | sed 's|./||')
+OMZ_PLUGINS        := $(HOME)/.oh-my-zsh/custom/plugins
+OMZ_PLUGIN_TARGETS := $(addprefix $(OMZ_PLUGINS)/,zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
 
 .DEFAULT_GOAL := help
 
@@ -18,13 +19,16 @@ setup: setup-omz-plugins ## Install prerequisites, clone plugins, and stow all p
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done
 
-setup-omz-plugins: ## Clone oh-my-zsh third-party plugins if missing
-	@test -d $(OMZ_PLUGINS)/zsh-autosuggestions || \
-		git clone https://github.com/zsh-users/zsh-autosuggestions $(OMZ_PLUGINS)/zsh-autosuggestions
-	@test -d $(OMZ_PLUGINS)/zsh-completions || \
-		git clone https://github.com/zsh-users/zsh-completions $(OMZ_PLUGINS)/zsh-completions
-	@test -d $(OMZ_PLUGINS)/zsh-syntax-highlighting || \
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $(OMZ_PLUGINS)/zsh-syntax-highlighting
+setup-omz-plugins: $(OMZ_PLUGIN_TARGETS) ## Clone oh-my-zsh third-party plugins if missing
+
+$(OMZ_PLUGINS)/zsh-autosuggestions:
+	git clone https://github.com/zsh-users/zsh-autosuggestions $@
+
+$(OMZ_PLUGINS)/zsh-completions:
+	git clone https://github.com/zsh-users/zsh-completions $@
+
+$(OMZ_PLUGINS)/zsh-syntax-highlighting:
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $@
 
 lint: ## Run style and format linters
 	pre-commit run trailing-whitespace --all-files
