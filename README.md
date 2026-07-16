@@ -11,6 +11,41 @@ make install-deps  # install system dependencies (stow, pre-commit)
 make install       # stow all packages, install git hooks, generate secrets baseline
 ```
 
+## Packages
+
+| Package | Files managed |
+|---------|--------------|
+| 🤖 [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
+| 🌐 [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |
+| 🐙 [Git](https://git-scm.com/) | `~/.gitconfig`, `~/.gitconfig-redhat`, `~/.config/git/ignore` |
+| 🐱 [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
+| 🔑 [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,gpg-agent,dirmngr}.conf` |
+| 📦 [npm](https://www.npmjs.com/) | `~/.npmrc` |
+| 🔒 [SSH](https://www.openssh.com/) | `~/.ssh/config` |
+| 📝 [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
+| 🐚 [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,yubikey}.zsh` |
+
+> **Oh My Zsh plugin prerequisites** — the following must be cloned once per machine (`make install-omz-plugins` handles this):
+>
+> - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+> - [zsh-completions](https://github.com/zsh-users/zsh-completions)
+> - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+
+<!-- -->
+
+> **Vim plugin prerequisites** — plugins use vim's native package system (`~/.vim/pack/`). The following are cloned once per machine (`make install-vim-plugins` handles this):
+>
+> - [ansible-vim](https://github.com/pearofducks/ansible-vim)
+> - [ctrlp.vim](https://github.com/kien/ctrlp.vim)
+> - [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim)
+> - [flake8-vim](https://github.com/andviro/flake8-vim)
+> - [syntastic](https://github.com/scrooloose/syntastic)
+> - [vim-base64](https://github.com/christianrondeau/vim-base64)
+> - [vim-fugitive](https://github.com/tpope/vim-fugitive)
+> - [vim-gnupg](https://github.com/jamessan/vim-gnupg)
+> - [vim-markdown](https://github.com/plasticboy/vim-markdown)
+> - [vim-python-pep8-indent](https://github.com/hynek/vim-python-pep8-indent)
+
 ## How it works
 
 Each top-level directory is a **Stow package** — a logical grouping named after the tool it configures. The directory tree inside mirrors `$HOME`, so Stow knows exactly where to place the symlinks.
@@ -47,41 +82,6 @@ To remove a package's symlinks without deleting files:
 ```bash
 stow --delete -t "$HOME" zsh
 ```
-
-## Packages
-
-| Package | Files managed |
-|---------|--------------|
-| 🤖 [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
-| 🌐 [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |
-| 🐙 [Git](https://git-scm.com/) | `~/.gitconfig`, `~/.gitconfig-redhat`, `~/.config/git/ignore` |
-| 🐱 [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
-| 🔑 [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,gpg-agent,dirmngr}.conf` |
-| 📦 [npm](https://www.npmjs.com/) | `~/.npmrc` |
-| 🔒 [SSH](https://www.openssh.com/) | `~/.ssh/config` |
-| 📝 [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
-| 🐚 [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,yubikey}.zsh` |
-
-> **Oh My Zsh plugin prerequisites** — the following must be cloned once per machine (`make install-omz-plugins` handles this):
->
-> - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
-> - [zsh-completions](https://github.com/zsh-users/zsh-completions)
-> - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-
-<!-- -->
-
-> **Vim plugin prerequisites** — plugins use vim's native package system (`~/.vim/pack/`). The following are cloned once per machine (`make install-vim-plugins` handles this):
->
-> - [ansible-vim](https://github.com/pearofducks/ansible-vim)
-> - [ctrlp.vim](https://github.com/kien/ctrlp.vim)
-> - [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim)
-> - [flake8-vim](https://github.com/andviro/flake8-vim)
-> - [syntastic](https://github.com/scrooloose/syntastic)
-> - [vim-base64](https://github.com/christianrondeau/vim-base64)
-> - [vim-fugitive](https://github.com/tpope/vim-fugitive)
-> - [vim-gnupg](https://github.com/jamessan/vim-gnupg)
-> - [vim-markdown](https://github.com/plasticboy/vim-markdown)
-> - [vim-python-pep8-indent](https://github.com/hynek/vim-python-pep8-indent)
 
 ## What is not tracked
 
