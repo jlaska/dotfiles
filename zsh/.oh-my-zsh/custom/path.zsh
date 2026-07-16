@@ -26,10 +26,10 @@ if [ -d "/opt/homebrew/opt/postgresql@16/bin" ]; then
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/jlaska/Projects/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jlaska/Projects/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/Projects/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Projects/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/jlaska/Projects/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jlaska/Projects/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/Projects/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Projects/google-cloud-sdk/completion.zsh.inc"; fi
 
 if [ -d "$HOME/.npm-global/bin" ]; then
   export PATH=$HOME/.npm-global/bin:$PATH

@@ -31,4 +31,4 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # Load Oh My zsh!
 source $ZSH/oh-my-zsh.sh
-source /Users/jlaska/.safe-chain/scripts/init-posix.sh # Safe-chain Zsh initialization script
+[ -f "$HOME/.safe-chain/scripts/init-posix.sh" ] && source "$HOME/.safe-chain/scripts/init-posix.sh"

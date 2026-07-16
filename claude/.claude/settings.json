@@ -275,25 +275,11 @@
     "command": "npx -y @owloops/claude-powerline@latest --style=capsule --theme=dark"
   },
   "enabledPlugins": {
-    "hcm-jira-administrator-agent@rosa-claude-plugins": false,
-    "ccjira@ccjira": false,
     "example-skills@anthropic-agent-skills": true,
-    "workday-auth@rh-manager-plugins": true,
-    "redhat-source-search@redhat-internal-tools": true,
-    "xlsx-converter@rh-manager-plugins": true,
-    "organization-analyst@rh-manager-plugins": true,
     "document-skills@anthropic-agent-skills": true,
-    "workday-reports@rh-manager-plugins": true,
-    "workday-goals@rh-manager-plugins": true,
-    "quarterly-connection-assistant@rh-manager-plugins": true,
-    "rh-performance-advisor@rh-manager-plugins": true,
     "frontend-design@claude-plugins-official": true,
     "obsidian-productivity@obsidian-claude-plugins": true,
     "markdown-linter-fixer@markdown-linter-fixer-marketplace": true,
-    "salary-cycle-orchestrator@rh-manager-plugins": true,
-    "salary-planning-advisor@rh-manager-plugins": true,
-    "email-triage@email-claude-plugins": true,
-    "conventional-commit@conventional-commit": true,
     "che-ical-mcp@psychquant-claude-plugins": true,
     "astral@astral-sh": true
   },
@@ -303,20 +289,6 @@
         "source": "git",
         "url": "https://github.com/s2005/markdown-linter-fixer-skill.git"
       }
-    },
-    "email-claude-plugins": {
-      "source": {
-        "source": "directory",
-        "path": "/Users/jlaska/Projects/email-claude-plugins"
-      },
-      "autoUpdate": true
-    },
-    "conventional-commit": {
-      "source": {
-        "source": "directory",
-        "path": "/Users/jlaska/Projects/conventional-commit"
-      },
-      "autoUpdate": false
     },
     "psychquant-claude-plugins": {
       "source": {

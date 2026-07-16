@@ -28,11 +28,6 @@ export default {
       browser: "Google Chrome"
     },
 	*/
-    /* Poelstra status document */
-    {
-      match: /^https?:\/\/docs.google.com\/document\/d\/12k3aBf43ch7JSMFnjD83m11gX1o5rEGYgdZ7Eube8_o\/.*$/,
-      browser: "Safari"
-    },
     /* Google Forms links */
     {
       match: finicky.matchHostnames(/forms\.gle/),
