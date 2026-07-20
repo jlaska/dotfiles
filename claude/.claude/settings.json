@@ -284,7 +284,7 @@
     "che-ical-mcp@psychquant-claude-plugins": true,
     "astral@astral-sh": true,
     "workday-auth@rh-manager-plugins": true,
-    "redhat-source-search@redhat-internal-tools": true,
+    "redhat-source-search@redhat-internal-tools": false,
     "xlsx-converter@rh-manager-plugins": true,
     "organization-analyst@rh-manager-plugins": true,
     "workday-reports@rh-manager-plugins": true,
@@ -301,26 +301,29 @@
       "source": {
         "source": "git",
         "url": "https://github.com/s2005/markdown-linter-fixer-skill.git"
-      }
+      },
+      "autoUpdate": false
     },
     "psychquant-claude-plugins": {
       "source": {
         "source": "github",
         "repo": "PsychQuant/psychquant-claude-plugins"
-      }
+      },
+      "autoUpdate": false
     },
     "astral-sh": {
       "source": {
         "source": "github",
         "repo": "astral-sh/claude-code-plugins"
-      }
+      },
+      "autoUpdate": false
     },
     "email-claude-plugins": {
       "source": {
         "source": "github",
         "repo": "jlaska/email-claude-plugins"
       },
-      "autoUpdate": true
+      "autoUpdate": false
     },
     "conventional-commit": {
       "source": {
