@@ -173,7 +173,8 @@
       "Bash(go fmt:*)",
       "Glob",
       "Grep",
-      "Read"
+      "Read",
+      "Bash(log show *)"
     ],
     "deny": [
       "Read(**/FIXME-secrets-FIXME/**/*)",
@@ -281,7 +282,19 @@
     "obsidian-productivity@obsidian-claude-plugins": true,
     "markdown-linter-fixer@markdown-linter-fixer-marketplace": true,
     "che-ical-mcp@psychquant-claude-plugins": true,
-    "astral@astral-sh": true
+    "astral@astral-sh": true,
+    "workday-auth@rh-manager-plugins": true,
+    "redhat-source-search@redhat-internal-tools": true,
+    "xlsx-converter@rh-manager-plugins": true,
+    "organization-analyst@rh-manager-plugins": true,
+    "workday-reports@rh-manager-plugins": true,
+    "workday-goals@rh-manager-plugins": true,
+    "quarterly-connection-assistant@rh-manager-plugins": true,
+    "rh-performance-advisor@rh-manager-plugins": true,
+    "salary-cycle-orchestrator@rh-manager-plugins": true,
+    "salary-planning-advisor@rh-manager-plugins": true,
+    "email-triage@email-claude-plugins": true,
+    "conventional-commit@conventional-commit": true
   },
   "extraKnownMarketplaces": {
     "markdown-linter-fixer-marketplace": {
@@ -301,6 +314,20 @@
         "source": "github",
         "repo": "astral-sh/claude-code-plugins"
       }
+    },
+    "email-claude-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "jlaska/email-claude-plugins"
+      },
+      "autoUpdate": true
+    },
+    "conventional-commit": {
+      "source": {
+        "source": "github",
+        "repo": "jlaska/conventional-commit"
+      },
+      "autoUpdate": false
     }
   },
   "effortLevel": "medium",
