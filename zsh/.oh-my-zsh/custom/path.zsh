@@ -35,6 +35,11 @@ if [ -d "$HOME/.npm-global/bin" ]; then
   export PATH=$HOME/.npm-global/bin:$PATH
 fi
 
+# Go binaries
+if [ -d "$HOME/go/bin" ]; then
+  export PATH=$HOME/go/bin:$PATH
+fi
+
 # Cargo package manager
 if [ -d "$HOME/.cargo/bin" ]; then
   export PATH=$HOME/.cargo/bin:$PATH
