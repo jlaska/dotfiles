@@ -1,3 +1,6 @@
+# claudectx profile MCP configs (may contain API tokens/PATs)
+claude/.claude/profiles/*/mcp.json
+
 # Credentials and secrets
 *.key
 *.pem
