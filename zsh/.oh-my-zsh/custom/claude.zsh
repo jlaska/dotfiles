@@ -11,7 +11,3 @@ export CLOUD_ML_REGION=global
 # To get key: kubectl get secret litellm-secrets -n litellm -o jsonpath='{.data.PROXY_MASTER_KEY}' | base64 -d
 export ANTHROPIC_BASE_URL="https://litellm.internal.keener.us"
 export ANTHROPIC_API_KEY="$(security find-generic-password -s "litellm-master-key" -a "$USER" -w 2>/dev/null)"
-
-export ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6[1m]"
-export ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-6[1m]"
-export ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-haiku-4-5-20251001"
