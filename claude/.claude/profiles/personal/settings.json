@@ -1,11 +1,11 @@
 {
   "env": {
-    "EDITOR": "vim",
-    "PAGER": "less",
-    "ENABLE_TOOL_SEARCH": "true",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5-20251001",
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6[1m]",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6[1m]",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5-20251001"
+    "EDITOR": "vim",
+    "ENABLE_TOOL_SEARCH": "true",
+    "PAGER": "less"
   },
   "permissions": {
     "allow": [
@@ -286,9 +286,6 @@
     "obsidian-productivity@obsidian-claude-plugins": false,
     "email-triage@email-claude-plugins": false,
     "markdown-linter-fixer@markdown-linter-fixer-marketplace": false,
-    "che-ical-mcp@psychquant-claude-plugins": false,
-    "astral@astral-sh": true,
-    "xlsx-converter@rh-manager-plugins": true,
     "conventional-commit@conventional-commit": true
   },
   "extraKnownMarketplaces": {
@@ -296,20 +293,6 @@
       "source": {
         "source": "git",
         "url": "https://github.com/s2005/markdown-linter-fixer-skill.git"
-      },
-      "autoUpdate": false
-    },
-    "psychquant-claude-plugins": {
-      "source": {
-        "source": "github",
-        "repo": "PsychQuant/psychquant-claude-plugins"
-      },
-      "autoUpdate": false
-    },
-    "astral-sh": {
-      "source": {
-        "source": "github",
-        "repo": "astral-sh/claude-code-plugins"
       },
       "autoUpdate": false
     },
@@ -330,14 +313,6 @@
   },
   "effortLevel": "medium",
   "mcpServers": {
-    "wdcli": {
-      "type": "stdio",
-      "command": "wdcli",
-      "args": [
-        "mcp",
-        "serve"
-      ]
-    }
   },
   "excludePatterns": [
     "**/node_modules/**",
