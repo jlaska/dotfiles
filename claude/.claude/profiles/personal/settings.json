@@ -274,7 +274,7 @@
       "Bash(systemctl start *)"
     ]
   },
-  "model": "anthropic/claude-sonnet-4-6",
+  "model": "anthropic/claude-sonnet-4-6[1m]",
   "statusLine": {
     "type": "command",
     "command": "npx -y @owloops/claude-powerline@latest --style=capsule --theme=dark"
