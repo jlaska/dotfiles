@@ -1,8 +1,22 @@
 {
+  "effortLevel": "medium",
+  "enabledPlugins": {
+    "conventional-commit@conventional-commit": true,
+    "document-skills@anthropic-agent-skills": true,
+    "email-triage@email-claude-plugins": true,
+    "example-skills@anthropic-agent-skills": true,
+    "frontend-design@claude-plugins-official": false,
+    "markdown-linter-fixer@markdown-linter-fixer-marketplace": true,
+    "obsidian-productivity@obsidian-claude-plugins": true,
+    "redhat-source-search@redhat-internal-tools": false
+  },
   "env": {
+    "ANTHROPIC_BASE_URL": "",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5-20251001",
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6[1m]",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6[1m]",
+    "CLAUDE_CODE_USE_VERTEX": "1",
+    "CLOUD_ML_REGION": "global",
     "EDITOR": "vim",
     "ENABLE_TOOL_SEARCH": "true",
     "PAGER": "less"
@@ -279,16 +293,6 @@
     "type": "command",
     "command": "npx -y @owloops/claude-powerline@latest --style=capsule --theme=dark"
   },
-  "enabledPlugins": {
-    "example-skills@anthropic-agent-skills": true,
-    "document-skills@anthropic-agent-skills": true,
-    "frontend-design@claude-plugins-official": false,
-    "obsidian-productivity@obsidian-claude-plugins": true,
-    "markdown-linter-fixer@markdown-linter-fixer-marketplace": true,
-    "redhat-source-search@redhat-internal-tools": false,
-    "email-triage@email-claude-plugins": true,
-    "conventional-commit@conventional-commit": true
-  },
   "extraKnownMarketplaces": {
     "markdown-linter-fixer-marketplace": {
       "source": {
@@ -312,7 +316,6 @@
       "autoUpdate": false
     }
   },
-  "effortLevel": "medium",
   "excludePatterns": [
     "**/node_modules/**",
     "**/.git/**",
