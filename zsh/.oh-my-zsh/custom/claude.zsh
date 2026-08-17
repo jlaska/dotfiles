@@ -1,3 +1,6 @@
+# All secrets loaded here; per-profile settings.json env blocks blank out the ones each profile doesn't need.
+# See: https://code.claude.com/docs/en/env-vars (settings.json env overrides shell env)
+
 # Vertex credentials (used by work tooling and LiteLLM proxy backend)
 # To update: security add-generic-password -U -s "anthropic-vertex-project-id" -a "$USER" -w "<new-value>"
 export ANTHROPIC_VERTEX_PROJECT_ID="$(security find-generic-password -s "anthropic-vertex-project-id" -a "$USER" -w 2>/dev/null)"
