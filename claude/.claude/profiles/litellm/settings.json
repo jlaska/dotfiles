@@ -10,6 +10,7 @@
     "conventional-commit@conventional-commit": true
   },
   "env": {
+    "ANTHROPIC_API_KEY": "",
     "ANTHROPIC_BASE_URL": "https://litellm.internal.keener.us",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5-20251001",
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6[1m]",
@@ -59,7 +60,7 @@
     }
   },
   "mcpServers": {},
-  "model": "opus[1m]",
+  "model": "opus",
   "permissions": {
     "allow": [
       "WebSearch",

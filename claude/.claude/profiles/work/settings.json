@@ -11,9 +11,7 @@
     "redhat-source-search@redhat-internal-tools": false
   },
   "env": {
-    "ANTHROPIC_API_KEY": "",
     "ANTHROPIC_BASE_URL": "",
-    "ANTHROPIC_CUSTOM_HEADERS": "",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5-20251001",
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6[1m]",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6[1m]",
@@ -23,6 +21,46 @@
     "ENABLE_TOOL_SEARCH": "true",
     "PAGER": "less"
   },
+  "excludePatterns": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/*.log",
+    "**/secrets/**/*.key",
+    "**/secrets/**/*.pem",
+    "**/secrets/**/*.p12",
+    "**/.env",
+    "**/.env.*",
+    "**/id_rsa",
+    "**/id_ed25519",
+    "**/*.gpg"
+  ],
+  "extraKnownMarketplaces": {
+    "markdown-linter-fixer-marketplace": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/s2005/markdown-linter-fixer-skill.git"
+      },
+      "autoUpdate": false
+    },
+    "email-claude-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "jlaska/email-claude-plugins"
+      },
+      "autoUpdate": false
+    },
+    "conventional-commit": {
+      "source": {
+        "source": "github",
+        "repo": "jlaska/conventional-commit"
+      },
+      "autoUpdate": false
+    }
+  },
+  "mcpServers": {},
+  "model": "sonnet",
   "permissions": {
     "allow": [
       "WebSearch",
@@ -196,6 +234,32 @@
       "Read",
       "Bash(log show *)"
     ],
+    "ask": [
+      "Bash(brew install *)",
+      "Bash(cargo publish *)",
+      "Bash(chmod +x *)",
+      "Bash(crontab -e *)",
+      "Bash(docker build *)",
+      "Bash(docker push *)",
+      "Bash(git clean -fd *)",
+      "Bash(git push *)",
+      "Bash(git rebase *)",
+      "Bash(git reset --hard *)",
+      "Bash(git add -A *)",
+      "Bash(git commit -A *)",
+      "Bash(helm template *)",
+      "Bash(kubectl delete *)",
+      "Bash(kubectl edit *)",
+      "Bash(kubectl patch *)",
+      "Bash(npm publish *)",
+      "Bash(service restart *)",
+      "Bash(service start *)",
+      "Bash(ssh *)",
+      "Bash(su *)",
+      "Bash(sudo *)",
+      "Bash(systemctl restart *)",
+      "Bash(systemctl start *)"
+    ],
     "deny": [
       "Read(**/FIXME-secrets-FIXME/**/*)",
       "Read(**/.env*)",
@@ -262,77 +326,10 @@
       "Bash(apt install *)",
       "Bash(yum install *)",
       "Bash(pacman -S *)"
-    ],
-    "ask": [
-      "Bash(brew install *)",
-      "Bash(cargo publish *)",
-      "Bash(chmod +x *)",
-      "Bash(crontab -e *)",
-      "Bash(docker build *)",
-      "Bash(docker push *)",
-      "Bash(git clean -fd *)",
-      "Bash(git push *)",
-      "Bash(git rebase *)",
-      "Bash(git reset --hard *)",
-      "Bash(git add -A *)",
-      "Bash(git commit -A *)",
-      "Bash(helm template *)",
-      "Bash(kubectl delete *)",
-      "Bash(kubectl edit *)",
-      "Bash(kubectl patch *)",
-      "Bash(npm publish *)",
-      "Bash(service restart *)",
-      "Bash(service start *)",
-      "Bash(ssh *)",
-      "Bash(su *)",
-      "Bash(sudo *)",
-      "Bash(systemctl restart *)",
-      "Bash(systemctl start *)"
     ]
   },
-  "model": "claude-sonnet-4-6[1m]",
   "statusLine": {
     "type": "command",
     "command": "npx -y @owloops/claude-powerline@latest --style=capsule --theme=dark"
-  },
-  "extraKnownMarketplaces": {
-    "markdown-linter-fixer-marketplace": {
-      "source": {
-        "source": "git",
-        "url": "https://github.com/s2005/markdown-linter-fixer-skill.git"
-      },
-      "autoUpdate": false
-    },
-    "email-claude-plugins": {
-      "source": {
-        "source": "github",
-        "repo": "jlaska/email-claude-plugins"
-      },
-      "autoUpdate": false
-    },
-    "conventional-commit": {
-      "source": {
-        "source": "github",
-        "repo": "jlaska/conventional-commit"
-      },
-      "autoUpdate": false
-    }
-  },
-  "excludePatterns": [
-    "**/node_modules/**",
-    "**/.git/**",
-    "**/dist/**",
-    "**/build/**",
-    "**/*.log",
-    "**/secrets/**/*.key",
-    "**/secrets/**/*.pem",
-    "**/secrets/**/*.p12",
-    "**/.env",
-    "**/.env.*",
-    "**/id_rsa",
-    "**/id_ed25519",
-    "**/*.gpg"
-  ],
-  "mcpServers": {
   }
 }

@@ -61,7 +61,7 @@
     }
   },
   "mcpServers": {},
-  "model": "sonnet",
+  "model": "opus",
   "permissions": {
     "allow": [
       "WebSearch",
