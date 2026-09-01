@@ -1,0 +1,7 @@
+# URI           ldap://ldap.corp.redhat.com
+# BASE          ou=users,dc=redhat,dc=com
+# SASL_NOCANON  on
+
+URI         ldaps://admin1.idm-001.prod.iad2.dc.redhat.com
+BASE        dc=ipa,dc=redhat,dc=com
+SASL_MECH   GSSAPI
