@@ -23,11 +23,10 @@ install-deps: install-brew-cli ## Install system dependencies via Homebrew
 
 # install has a recipe only for the stow loop — stow is idempotent so safe to always run.
 # All other prerequisites are real files; Make skips them when already up-to-date.
-install: install-deps install-omz-plugins install-vim-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages and install Brewfile
+install: install-deps install-omz-plugins install-vim-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages
 	@for pkg in $(PACKAGES); do \
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done
-	@$(MAKE) install-brew
 
 install-brew: ## Install Homebrew packages from Brewfile
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
