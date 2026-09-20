@@ -3,44 +3,42 @@ OMZ_PLUGINS        := $(HOME)/.oh-my-zsh/custom/plugins
 OMZ_PLUGIN_TARGETS := $(addprefix $(OMZ_PLUGINS)/,zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
 VIM_PACK           := $(HOME)/.vim/pack/plugins/start
 VIM_PLUGIN_TARGETS := $(addprefix $(VIM_PACK)/,ansible-vim ctrlp.vim editorconfig-vim flake8-vim syntastic vim-base64 vim-fugitive vim-gnupg vim-markdown vim-python-pep8-indent)
-BREW_PREFIX        := $(shell brew --prefix 2>/dev/null)
 
 .DEFAULT_GOAL := help
 
-.PHONY: help install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins lint pre-commit check
+.PHONY: help install-xcode install-brew-cli install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-install-deps: $(BREW_PREFIX)/bin/stow $(BREW_PREFIX)/bin/pre-commit ## Install system dependencies via Homebrew
+install-xcode: ## Install Xcode Command Line Tools if missing
+	@xcode-select -p >/dev/null 2>&1 || { echo "Installing Xcode Command Line Tools..."; xcode-select --install; echo "Re-run 'make install' after Xcode CLT installation completes."; exit 1; }
 
-$(BREW_PREFIX)/bin/stow:
-	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
-	brew install stow
+install-brew-cli: install-xcode ## Install Homebrew if missing
+	@command -v brew >/dev/null 2>&1 || { echo "Installing Homebrew..."; /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; }
 
-$(BREW_PREFIX)/bin/pre-commit:
-	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
-	brew install pre-commit
+install-deps: install-brew-cli ## Install system dependencies via Homebrew
+	@command -v stow >/dev/null 2>&1 || brew install stow
+	@command -v pre-commit >/dev/null 2>&1 || brew install pre-commit
 
 # install has a recipe only for the stow loop — stow is idempotent so safe to always run.
 # All other prerequisites are real files; Make skips them when already up-to-date.
-install: install-deps install-omz-plugins install-vim-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages (run after install-deps)
+install: install-deps install-omz-plugins install-vim-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages and install Brewfile
 	@for pkg in $(PACKAGES); do \
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done
-	@echo ""
-	@echo "Run 'make install-brew' to install Homebrew packages from Brewfile"
+	@$(MAKE) install-brew
 
 install-brew: ## Install Homebrew packages from Brewfile
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
-	brew bundle install --file="$$HOME/Brewfile" --no-upgrade
+	brew bundle install --file=brew/Brewfile --no-upgrade
 
 brew-dump: ## Refresh Brewfile from currently installed packages
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
 	brew bundle dump --file=brew/Brewfile --describe --force
 
-.git/hooks/pre-commit: $(BREW_PREFIX)/bin/pre-commit
-	pre-commit install
+.git/hooks/pre-commit:
+	@command -v pre-commit >/dev/null 2>&1 && pre-commit install || echo "pre-commit not yet installed, skipping hook setup"
 
 .secrets.baseline:
 	detect-secrets scan > $@
