@@ -15,15 +15,20 @@ make install       # stow all packages, install git hooks, generate secrets base
 
 | Package | Files managed |
 |---------|--------------|
-| 🤖 [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
-| 🌐 [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |
-| 🐙 [Git](https://git-scm.com/) | `~/.gitconfig`, `~/.gitconfig-redhat`, `~/.config/git/ignore` |
-| 🐱 [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
-| 🔑 [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,gpg-agent,dirmngr}.conf` |
-| 📦 [npm](https://www.npmjs.com/) | `~/.npmrc` |
-| 🔒 [SSH](https://www.openssh.com/) | `~/.ssh/config` |
-| 📝 [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
-| 🐚 [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,yubikey}.zsh` |
+| [Ansible](https://docs.ansible.com/) | `~/.ansible.cfg` |
+| [AWS CLI](https://aws.amazon.com/cli/) | `~/.aws/config` |
+| [Homebrew](https://brew.sh/) | `~/Brewfile` |
+| [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
+| [Containers](https://github.com/containers/common) | `~/.config/containers/registries.conf` |
+| [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |
+| [Git](https://git-scm.com/) | `~/.gitconfig`, `~/.gitconfig-redhat`, `~/.config/git/ignore` |
+| [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
+| [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,gpg-agent,dirmngr}.conf` |
+| [LDAP](https://www.openldap.org/) | `~/.ldaprc` |
+| [npm](https://www.npmjs.com/) | `~/.npmrc` |
+| [SSH](https://www.openssh.com/) | `~/.ssh/config` |
+| [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
+| [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,safe-chain,yubikey}.zsh` |
 
 > **Oh My Zsh plugin prerequisites** — the following must be cloned once per machine (`make install-omz-plugins` handles this):
 >

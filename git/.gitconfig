@@ -29,3 +29,9 @@
     gpgSign = true
 [includeIf "hasconfig:remote.*.url:git@gitlab.cee.redhat.com:*/**"]
     path = ~/.gitconfig-redhat
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential

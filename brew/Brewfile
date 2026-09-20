@@ -1,0 +1,247 @@
+tap "ankitpokhrel/jira-cli"
+tap "anomalyco/tap"
+tap "atlassian/acli", trusted: true
+tap "derailed/k9s", trusted: true
+tap "int128/kubelogin"
+tap "kubeshop/monokle"
+tap "nvidia/openshell"
+tap "openclaw/tap", trusted: true
+tap "robusta-dev/krr"
+tap "siderolabs/tap"
+tap "sst/tap", "https://github.com/anomalyco/homebrew-tap.git"
+tap "steipete/tap"
+tap "tj-smith47/tap"
+# Simple, modern, secure file encryption
+brew "age"
+# Cryptographic recipes and primitives for Python
+brew "cryptography"
+# C library SSHv1/SSHv2 client and server protocols
+brew "libssh"
+# Automate deployment, configuration, and upgrading
+brew "ansible"
+# Checks ansible playbooks for practices and behaviour
+brew "ansible-lint"
+# Zstandard is a real-time compression algorithm
+brew "zstd"
+# GitOps Continuous Delivery for Kubernetes
+brew "argocd"
+# Core application library for C
+brew "glib"
+# Nuke a whole AWS account and delete all its resources
+brew "aws-nuke"
+# Official Amazon AWS command-line interface
+brew "awscli"
+# B2 Cloud Storage Command-Line Tools
+brew "b2-tools"
+# Prevent cloud misconfigurations during build-time for IaC tools
+brew "checkov"
+# Cloudflare Tunnel client (formerly Argo Tunnel)
+brew "cloudflared"
+# Home for the Cluster Management API work, a subproject of sig-cluster-lifecycle
+brew "clusterctl"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Tool for interacting with remote images and registries
+brew "crane"
+# Enterprise friendly way of detecting and preventing secrets in code
+brew "detect-secrets"
+# ESP8266 and ESP32 serial bootloader utility
+brew "esptool"
+# Key value store for shared configuration and service discovery
+brew "etcd"
+# Library to load and enumerate PKCS#11 modules
+brew "p11-kit"
+# GNU Transport Layer Security (TLS) Library
+brew "gnutls"
+# Asynchronous event library
+brew "libevent"
+# Validating, recursive, caching DNS resolver
+brew "unbound"
+# User-friendly command-line shell for UNIX-like operating systems
+brew "fish"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
+# Interact with Google Gemini AI models from the command-line
+brew "gemini-cli"
+# GitHub command-line tool
+brew "gh"
+# Quickly rewrite git repository history
+brew "git-filter-repo"
+# Audit git repos for secrets
+brew "gitleaks"
+# Open-source GitLab command-line tool
+brew "glab"
+# GNU Privacy Guard (OpenPGP)
+brew "gnupg"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# Fast linters runner for Go
+brew "golangci-lint"
+# Deliver Go binaries as fast and easily as possible
+brew "goreleaser"
+# Kubernetes package manager
+brew "helm"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# Feature-rich interactive Jira CLI
+brew "jira-cli"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Run local Kubernetes cluster in Docker
+brew "kind"
+# CLI tool to discover unused Kubernetes resources
+brew "kor"
+# Flexible Kustomize Plugin for SOPS Encrypted Resources
+brew "ksops"
+# Static analysis tool for Kubernetes YAML files and Helm charts
+brew "kube-linter"
+# SDK for building Kubernetes APIs using CRDs
+brew "kubebuilder"
+# FAST Kubernetes manifests validator, with support for Custom Resources!
+brew "kubeconform"
+# CloudNativePG plugin for kubectl
+brew "kubectl-cnpg"
+# Kubernetes command-line interface
+brew "kubernetes-cli"
+# Tool that can switch between kubectl contexts easily and create aliases
+brew "kubectx"
+# Easily check your clusters for use of deprecated APIs
+brew "kubent"
+# Kubernetes controller and tool for one-way encrypted Secrets
+brew "kubeseal"
+# Logging tool for Kubernetes with a real-time web dashboard
+brew "kubetail"
+# Template-free customization of Kubernetes YAML manifests
+brew "kustomize"
+# C library implementing the SSH2 protocol
+brew "libssh2"
+# C websockets server library
+brew "libwebsockets"
+# CLI for Node.js style checker and lint tool for Markdown files
+brew "markdownlint-cli"
+# Run a Kubernetes cluster locally
+brew "minikube"
+# Replacement for ls, cp and other commands for object storage
+brew "minio-mc"
+# Message broker implementing the MQTT protocol
+brew "mosquitto"
+# Mongrel of mail user agents (part elm, pine, mush, mh, etc.)
+brew "mutt"
+# FTP client with an advanced user interface
+brew "ncftp"
+# Port scanning utility for large networks
+brew "nmap"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@1.1"
+# SDK for building Kubernetes applications
+brew "operator-sdk"
+# Performant, and portable jq wrapper to support formats other than JSON
+brew "oq"
+# 7-Zip (high compression file archiver) implementation
+brew "p7zip"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+# Pinentry for GPG on Mac
+brew "pinentry-mac"
+# Fast, disk space efficient package manager
+brew "pnpm"
+# Tool for managing OCI containers and pods
+brew "podman"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# Object-relational database system
+brew "postgresql@16"
+# Convert bitmaps to vector graphics
+brew "potrace"
+# Framework for managing multi-language pre-commit hooks
+brew "pre-commit"
+# Test your LLM app locally
+brew "promptfoo"
+# Implementation of Telnet and SSH
+brew "putty"
+# Monitor data's progress through a pipe
+brew "pv"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
+# Generic machine emulator and virtualizer
+brew "qemu"
+# QR Code generation
+brew "qrencode"
+# Rsync for cloud storage
+brew "rclone"
+# Docker registry v2 command-line client
+brew "reg"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# RedHat OpenShift Service on AWS (ROSA) command-line interface
+brew "rosa-cli"
+# Extremely fast Python linter, written in Rust
+brew "ruff"
+# Safe, concurrent, practical language
+brew "rust"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Editor of encrypted files
+brew "sops"
+# Command-line interface for https://speedtest.net bandwidth tests
+brew "speedtest-cli"
+# Non-interactive SSH password auth
+brew "sshpass"
+# Uplink CLI for the Storj network
+brew "storj-uplink"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "stow"
+# Configuration helper for talos clusters
+brew "talhelper"
+# Send macOS User Notifications from the command-line
+brew "terminal-notifier"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Vulnerability scanner for container images, file systems, and Git repos
+brew "trivy"
+# Command-line unarchiving tools supporting multiple formats
+brew "unar"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
+# Internet file retriever
+brew "wget"
+# ISO9660+RR manipulation tool
+brew "xorriso"
+# Linter for YAML files
+brew "yamllint"
+# Tool for managing your YubiKey configuration
+brew "ykman"
+# YubiKey personalization library and tool
+brew "ykpers"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
+brew "yq"
+# The AI coding agent built for the terminal.
+brew "anomalyco/tap/opencode", trusted: true
+# Software to interact with Atlassian Cloud from the terminal
+brew "atlassian/acli/acli"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "derailed/k9s/k9s"
+# A kubectl plugin for Kubernetes OpenID Connect authentication
+brew "int128/kubelogin/kubelogin", trusted: true
+# Safe, private runtime for autonomous AI agents
+brew "nvidia/openshell/openshell", trusted: true
+# Google CLI for Gmail, Calendar, Drive, Docs, Sheets, and more
+brew "openclaw/tap/gogcli"
+# CLI for out-of-band management of Kubernetes nodes created by Talos
+brew "siderolabs/tap/talosctl", trusted: true
+# Virtual Audio Driver
+cask "blackhole-16ch"
+# Virtual Audio Driver
+cask "blackhole-2ch"
+# Transcribe and translate audio
+cask "buzz"
+go "github.com/johnfox/claudectx"
+go "github.com/golangci/golangci-lint/v2/cmd/golangci-lint"
+go "github.com/ankitpokhrel/jira-cli/cmd/jira"
+go "gitlab.cee.redhat.com/workday/wdcli"
+cargo "cctx"
+uv "reverse-api-engineer"
+npm "@earendil-works/pi-coding-agent"
+npm "@kaitranntt/ccs"

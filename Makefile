@@ -7,7 +7,7 @@ BREW_PREFIX        := $(shell brew --prefix 2>/dev/null)
 
 .DEFAULT_GOAL := help
 
-.PHONY: help install-deps install install-omz-plugins install-vim-plugins lint pre-commit check
+.PHONY: help install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -28,6 +28,16 @@ install: install-deps install-omz-plugins install-vim-plugins .git/hooks/pre-com
 	@for pkg in $(PACKAGES); do \
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done
+	@echo ""
+	@echo "Run 'make install-brew' to install Homebrew packages from Brewfile"
+
+install-brew: ## Install Homebrew packages from Brewfile
+	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
+	brew bundle install --file="$$HOME/Brewfile" --no-upgrade
+
+brew-dump: ## Refresh Brewfile from currently installed packages
+	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
+	brew bundle dump --file=brew/Brewfile --describe --force
 
 .git/hooks/pre-commit: $(BREW_PREFIX)/bin/pre-commit
 	pre-commit install

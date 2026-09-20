@@ -4,6 +4,11 @@ claude/.claude/settings.json
 # claudectx profile MCP configs (may contain API tokens/PATs)
 claude/.claude/profiles/*/mcp.json
 
+# AWS credentials and session state (only config is tracked)
+aws/.aws/credentials
+aws/.aws/sso/
+aws/.aws/*.json
+
 # Credentials and secrets
 *.key
 *.pem
