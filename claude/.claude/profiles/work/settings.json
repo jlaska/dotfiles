@@ -60,7 +60,7 @@
     }
   },
   "mcpServers": {},
-  "model": "sonnet",
+  "model": "opus",
   "permissions": {
     "allow": [
       "WebSearch",
@@ -331,5 +331,6 @@
   "statusLine": {
     "type": "command",
     "command": "npx -y @owloops/claude-powerline@latest --style=capsule --theme=dark"
-  }
+  },
+  "tui": "fullscreen"
 }

@@ -1,4 +1,5 @@
 {
+  "agentPushNotifEnabled": true,
   "effortLevel": "medium",
   "enabledPlugins": {
     "example-skills@anthropic-agent-skills": true,
@@ -58,6 +59,12 @@
         "repo": "jlaska/conventional-commit"
       },
       "autoUpdate": false
+    },
+    "claude-community": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-community"
+      }
     }
   },
   "mcpServers": {},
@@ -249,6 +256,7 @@
       "Bash(git add -A *)",
       "Bash(git commit -A *)",
       "Bash(helm template *)",
+      "Bash(kubectl apply *)",
       "Bash(kubectl delete *)",
       "Bash(kubectl edit *)",
       "Bash(kubectl patch *)",
@@ -309,7 +317,6 @@
       "Bash(curl -o /usr/*)",
       "Bash(wget -O /var/*)",
       "Bash(curl -o /var/*)",
-      "Bash(kubectl apply *)",
       "Bash(kubectl create *)",
       "Bash(helm install *)",
       "Bash(helm upgrade *)",
@@ -332,5 +339,62 @@
   "statusLine": {
     "type": "command",
     "command": "npx -y @owloops/claude-powerline@latest --style=capsule --theme=dark"
+  },
+  "autoMode": {
+    "allow": [
+      "$defaults",
+      "Bash(kubectl *describe*)",
+      "Bash(kubectl *get*)",
+      "Bash(kubectl *logs*)",
+      "Bash(kubectl *top*)",
+      "Bash(kubectl *wait*)",
+      "Bash(kubectl apply *)",
+      "Bash(kubectl delete *)",
+      "Bash(kubectl edit *)",
+      "Bash(kubectl patch *)",
+      "Bash(talosctl:*)",
+      "Bash(argocd:*)",
+      "Bash(kustomize:*)",
+      "Bash(kubeseal:*)",
+      "Bash(uv:*)",
+      "Bash(uvx:*)",
+      "Bash(helm:*)",
+      "Bash(dig:*)",
+      "Bash(cloudflared:*)"
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Bash(talosctl reboot:*) -- node reboot is destructive; confirm node and mode",
+      "Bash(talosctl reset:*) -- node reset is destructive and irreversible",
+      "Bash(kubectl delete node:*) -- removing a Kubernetes node requires Longhorn CR cleanup",
+      "Bash(kubectl create:*) -- removing a Kubernetes node requires Longhorn CR cleanup",
+      "Bash(argocd app delete:*) -- deleting an ArgoCD application may destroy cluster resources"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: jlaska (personal GitHub account)",
+      "**Cloud provider(s)**: Cloudflare (DNS, tunnels), Storj (S3-compatible object storage via gateway.storjshare.io), Backblaze B2 (object storage)",
+      "**Repository visibility**: private",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: SealedSecrets (kubeseal) for Kubernetes secrets committed as `.sealed.yaml`; SOPS with age for Talos secrets (`secrets.sops.yaml`); sealed-secrets public cert at `cluster/infrastructure/sealed-secrets/cluster-cert.pem`; private key stored in Vaultwarden",
+      "**Default / protected branches**: main (no branch protection rules or rulesets listed)",
+      "**CI/CD deploy targets**: ArgoCD GitOps reconciliation to three Kubernetes clusters (Zebes K3s production, Tallon IV Talos staging, Orpheon Talos RPi 4 exit node); GitHub Actions workflows",
+      "**Network posture**: Homelab on LAN 10.0.1.0/24; external ingress via Cloudflare Tunnel (QUIC) → cloudflared → Traefik; internal ingress via Traefik internal (10.0.1.52); Tailscale mesh VPN; MetalLB L2 for LoadBalancer services",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine or CI runner with open internet; if it runs inside a container/VM/pod with an egress allow-list, no network, or neighbours it must not touch, say so here (network setting and allowed hosts, whether the cloud metadata endpoint is meant to be reachable, which cloud project/cluster/registry the task operates and as what identity). Whatever is configured, instance-metadata credential paths and node/cluster credentials of the hosting layer are never task credentials unless this entry says the agent operates that identity (see Containment Escape). The classifier sees commands, not their output, so a declared-sealed box that is actually open cannot be caught here — enforce that in network configuration.",
+      "**Source control**: jlaska/homelab on GitHub (private) and its configured remote(s) only — no additional orgs configured",
+      "**Trusted internal domains**: *.keener.us, *.internal.keener.us, garage.garage.svc.cluster.local",
+      "**Trusted cloud buckets**: speakarr-sqlite, speakarr-litestream, authentik-cnpg (config-derived — not a confirmed upload destination; uploads of local data still require confirmation), home-assistant-cnpg (config-derived — not a confirmed upload destination; uploads of local data still require confirmation), immich-cnpg (config-derived — not a confirmed upload destination; uploads of local data still require confirmation), langfuse-cnpg (config-derived — not a confirmed upload destination; uploads of local data still require confirmation), litellm-cnpg (config-derived — not a confirmed upload destination; uploads of local data still require confirmation), longhorn (config-derived — not a confirmed upload destination; uploads of local data still require confirmation), mealie-cnpg (config-derived — not a confirmed upload destination; uploads of local data still require confirmation), paperless-ngx-cnpg (config-derived — not a confirmed upload destination; uploads of local data still require confirmation), romm-cnpg (config-derived — not a confirmed upload destination; uploads of local data still require confirmation)",
+      "**Key internal services**: ArgoCD (GitOps), CNPG (PostgreSQL operator), redis-operator, Longhorn (distributed storage), Traefik (ingress), cert-manager (TLS), Authentik (SSO/identity), Cloudflare Tunnel, MetalLB, ExternalDNS, Prometheus/Grafana/Loki (observability)",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: SOPS-encrypted Talos secrets (`talos/*/secrets.sops.yaml`); SealedSecret manifests under `secrets/` directories; sealed-secrets private key in Vaultwarden; kubeconfig and talosconfig files; any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment (hyphen/underscore/dot-delimited — e.g. matches `prod-db`, not `producer`)",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: Kubernetes homelab GitOps management — deploying/modifying applications, CNPG database operations, sealed secrets management, cluster troubleshooting, firmware updates, Renovate PR impact reviews, networking/ingress configuration",
+      "**Trusted repo**: jlaska/homelab (private) on GitHub and its configured remote origin",
+      "**Org-specific CLIs**: kubectl, talosctl, argocd, kubeseal, kustomize, cloudflared, uplink, b2, uv, uvx, crane"
+    ]
   }
 }
