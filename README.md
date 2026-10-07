@@ -58,7 +58,7 @@ macOS Keychain on each machine, where shell config and `make import-keys` read i
 
 YubiKey-resident keys (signing, encryption, SSH auth) need no backup; `gpg --card-status`
 recreates the local stubs. There are two YubiKeys holding the same subkeys — primary
-(5C Nano, serial 38083705) and a backup. After switching cards, run `yk-switch` (alias in
+(5C Nano, serial 38083705) and a backup (serial 37886274). After switching cards, run `yk-switch` (alias in
 `yubikey.zsh`) so the stubs point at the inserted card. The offline certify (primary) key
 `FE149E5D50B99EC9EE32B49507E5ACD7B3165BD3` is stored separately and is not on this machine. The public key is fetched from
 `https://github.com/jlaska.gpg`.
