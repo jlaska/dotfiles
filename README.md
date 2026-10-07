@@ -22,12 +22,12 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 | [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |
 | [Git](https://git-scm.com/) | `~/.gitconfig`, `~/.gitconfig-redhat`, `~/.config/git/ignore` |
 | [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
-| [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,gpg-agent,dirmngr}.conf` |
+| [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,gpg-agent,dirmngr,scdaemon}.conf` |
 | [LDAP](https://www.openldap.org/) | `~/.ldaprc` |
 | [npm](https://www.npmjs.com/) | `~/.npmrc` |
-| [SSH](https://www.openssh.com/) | `~/.ssh/config` |
+| [SSH](https://www.openssh.com/) | `~/.ssh/config`, `~/.ssh/id_yubikey.pub` |
 | [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
-| [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,safe-chain,yubikey}.zsh` |
+| [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,safe-chain,sops,yubikey}.zsh` |
 
 > **Oh My Zsh plugin prerequisites** — the following must be cloned once per machine (`make install-omz-plugins` handles this):
 >
@@ -49,6 +49,34 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 > - [vim-gnupg](https://github.com/jamessan/vim-gnupg)
 > - [vim-markdown](https://github.com/plasticboy/vim-markdown)
 > - [vim-python-pep8-indent](https://github.com/hynek/vim-python-pep8-indent)
+
+## New machine setup (keys)
+
+Private key material is never committed. It lives in Vaultwarden and is copied into the
+macOS Keychain on each machine, where shell config and `make import-keys` read it with
+`security find-generic-password -s <item> -a "$USER" -w`.
+
+YubiKey-resident keys (signing, encryption, SSH auth) need no backup; `gpg --card-status`
+recreates the local stubs. There are two YubiKeys holding the same subkeys — primary
+(5C Nano, serial 38083705) and a backup. After switching cards, run `yk-switch` (alias in
+`yubikey.zsh`) so the stubs point at the inserted card. The offline certify (primary) key
+`FE149E5D50B99EC9EE32B49507E5ACD7B3165BD3` is stored separately and is not on this machine. The public key is fetched from
+`https://github.com/jlaska.gpg`.
+
+| Keychain item (`-s`) | Contents (single-line base64) |
+|----------------------|-------------------------------|
+| `gpg-sops-key` | `gpg --export-secret-keys --armor 8668024533C807BFAC0246A3339F4E72487C358F` (SOPS key) |
+| `gpg-argocd-secrets-key` | `gpg --export-secret-keys --armor 319C4CA1B91B7147BD6B38155DB5F1A4459A1F71` (k3s.keener.cluster) |
+| `gpg-ownertrust` | `gpg --export-ownertrust` |
+| `sops-age-key` | `~/.config/sops/age/keys.txt` |
+
+```bash
+# Populate Keychain from Vaultwarden (repeat per item), then:
+security add-generic-password -U -s gpg-sops-key -a "$USER" -w "<base64 from Vaultwarden>"
+make import-keys
+ssh-add -L                     # should list cardno:38_083_705
+git commit --allow-empty -m t  # should prompt for YubiKey PIN
+```
 
 ## How it works
 

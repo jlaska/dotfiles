@@ -6,7 +6,7 @@ VIM_PLUGIN_TARGETS := $(addprefix $(VIM_PACK)/,ansible-vim ctrlp.vim editorconfi
 
 .DEFAULT_GOAL := help
 
-.PHONY: help install-xcode install-brew-cli install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins lint pre-commit check
+.PHONY: help install-xcode install-brew-cli install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins import-keys lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -84,6 +84,21 @@ $(VIM_PACK)/vim-markdown:
 
 $(VIM_PACK)/vim-python-pep8-indent:
 	git clone https://github.com/hynek/vim-python-pep8-indent.git $@
+
+# Private key material lives in Vaultwarden, copied into the macOS Keychain per machine.
+# Each item is a single-line base64 value (see README "New machine setup").
+GPG_KEYCHAIN_ITEMS := gpg-sops-key gpg-argocd-secrets-key
+AGE_KEY_FILE       := $(HOME)/.config/sops/age/keys.txt
+
+import-keys: ## Import GPG public/secret keys, ownertrust and SOPS age key from Keychain
+	curl -fsSL https://github.com/jlaska.gpg | gpg --import
+	@for item in $(GPG_KEYCHAIN_ITEMS); do \
+		security find-generic-password -s "$$item" -a "$$USER" -w | base64 -d | gpg --batch --import && echo "imported: $$item"; \
+	done
+	security find-generic-password -s gpg-ownertrust -a "$$USER" -w | base64 -d | gpg --import-ownertrust
+	@mkdir -p $(dir $(AGE_KEY_FILE)) && umask 077 && \
+		security find-generic-password -s sops-age-key -a "$$USER" -w | base64 -d > $(AGE_KEY_FILE) && echo "wrote: $(AGE_KEY_FILE)"
+	gpg --card-status >/dev/null && echo "YubiKey stubs created"
 
 lint: ## Run style and format linters
 	pre-commit run trailing-whitespace --all-files
