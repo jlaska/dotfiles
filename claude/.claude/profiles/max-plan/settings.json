@@ -3,7 +3,7 @@
   "effortLevel": "medium",
   "enabledPlugins": {
     "example-skills@anthropic-agent-skills": true,
-    "document-skills@anthropic-agent-skills": true,
+    "document-skills@anthropic-agent-skills": false,
     "frontend-design@claude-plugins-official": false,
     "obsidian-productivity@obsidian-claude-plugins": false,
     "email-triage@email-claude-plugins": false,
@@ -70,6 +70,7 @@
   "mcpServers": {},
   "model": "opus",
   "permissions": {
+    "defaultMode": "auto",
     "allow": [
       "WebSearch",
       "Bash(cargo build *)",

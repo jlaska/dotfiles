@@ -2,7 +2,7 @@
   "effortLevel": "medium",
   "enabledPlugins": {
     "conventional-commit@conventional-commit": true,
-    "document-skills@anthropic-agent-skills": true,
+    "document-skills@anthropic-agent-skills": false,
     "email-triage@email-claude-plugins": true,
     "example-skills@anthropic-agent-skills": true,
     "frontend-design@claude-plugins-official": false,
@@ -62,6 +62,7 @@
   "mcpServers": {},
   "model": "opus",
   "permissions": {
+    "defaultMode": "auto",
     "allow": [
       "WebSearch",
       "Bash(cargo build *)",
