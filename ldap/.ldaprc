@@ -2,6 +2,17 @@
 # BASE          ou=users,dc=redhat,dc=com
 # SASL_NOCANON  on
 
-URI         ldaps://admin1.idm-001.prod.iad2.dc.redhat.com
-BASE        dc=ipa,dc=redhat,dc=com
-SASL_MECH   GSSAPI
+# URI         ldaps://admin1.idm-001.prod.iad2.dc.redhat.com
+# BASE        dc=ipa,dc=redhat,dc=com
+# SASL_MECH   GSSAPI
+
+# SASL_NOCANON on
+# URI ldaps://s1.idm-001.prod.iad2.dc.redhat.com/ ldaps://s2.idm-001.prod.iad2.dc.redhat.com/ ldaps://s1.idm-001.prod.rdu2.dc.redhat.com/ ldaps://s2.idm-001.prod.rdu2.dc.redhat.com/
+# SASL_MECH GSSAPI
+# TLS_REQCERT demand
+# BASE cn=users,cn=accounts,dc=ipa,dc=redhat,dc=com
+
+URI ldaps://ldap.corp.redhat.com
+BASE ou=users,dc=redhat,dc=com
+SASL_MECH GSSAPI
+SASL_NOCANON on
