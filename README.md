@@ -24,10 +24,11 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 | [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
 | [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,gpg-agent,dirmngr,scdaemon}.conf` |
 | [LDAP](https://www.openldap.org/) | `~/.ldaprc` |
+| [mise](https://mise.jdx.dev/) | `~/.config/mise/config.toml` (runtimes and CLI tools; `make install-mise`) |
 | [npm](https://www.npmjs.com/) | `~/.npmrc` |
 | [SSH](https://www.openssh.com/) | `~/.ssh/config`, `~/.ssh/id_yubikey.pub` |
 | [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
-| [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,safe-chain,sops,yubikey}.zsh` |
+| [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,mise,path,prompt,safe-chain,sops,yubikey}.zsh` |
 
 > **Oh My Zsh plugin prerequisites** — the following must be cloned once per machine (`make install-omz-plugins` handles this):
 >

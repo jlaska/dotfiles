@@ -6,7 +6,7 @@ VIM_PLUGIN_TARGETS := $(addprefix $(VIM_PACK)/,ansible-vim ctrlp.vim editorconfi
 
 .DEFAULT_GOAL := help
 
-.PHONY: help install-xcode install-brew-cli install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins import-keys lint pre-commit check
+.PHONY: help install-xcode install-brew-cli install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins install-mise import-keys lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -27,6 +27,10 @@ install: install-deps install-omz-plugins install-vim-plugins .git/hooks/pre-com
 	@for pkg in $(PACKAGES); do \
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done
+	@$(MAKE) --no-print-directory install-mise
+
+install-mise: ## Install tools pinned in ~/.config/mise/config.toml (requires mise from Brewfile)
+	@command -v mise >/dev/null 2>&1 && mise install --yes || echo "mise not found; run 'make install-brew' first"
 
 install-brew: ## Install Homebrew packages from Brewfile
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }

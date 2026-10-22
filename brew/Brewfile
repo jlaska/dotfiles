@@ -21,10 +21,10 @@ brew "libssh"
 brew "ansible"
 # Checks ansible playbooks for practices and behaviour
 brew "ansible-lint"
+# Polyglot tool version manager (runtimes and CLI versions)
+brew "mise"
 # Zstandard is a real-time compression algorithm
 brew "zstd"
-# GitOps Continuous Delivery for Kubernetes
-brew "argocd"
 # Core application library for C
 brew "glib"
 # Nuke a whole AWS account and delete all its resources
@@ -41,8 +41,6 @@ brew "cloudflared"
 brew "clusterctl"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
-# Tool for interacting with remote images and registries
-brew "crane"
 # Enterprise friendly way of detecting and preventing secrets in code
 brew "detect-secrets"
 # ESP8266 and ESP32 serial bootloader utility
@@ -59,8 +57,6 @@ brew "libevent"
 brew "unbound"
 # User-friendly command-line shell for UNIX-like operating systems
 brew "fish"
-# Open-source, cross-platform JavaScript runtime environment
-brew "node"
 # Interact with Google Gemini AI models from the command-line
 brew "gemini-cli"
 # GitHub command-line tool
@@ -79,8 +75,6 @@ brew "go"
 brew "golangci-lint"
 # Deliver Go binaries as fast and easily as possible
 brew "goreleaser"
-# Kubernetes package manager
-brew "helm"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
 # Feature-rich interactive Jira CLI
@@ -93,26 +87,14 @@ brew "kind"
 brew "kor"
 # Flexible Kustomize Plugin for SOPS Encrypted Resources
 brew "ksops"
-# Static analysis tool for Kubernetes YAML files and Helm charts
-brew "kube-linter"
 # SDK for building Kubernetes APIs using CRDs
 brew "kubebuilder"
-# FAST Kubernetes manifests validator, with support for Custom Resources!
-brew "kubeconform"
 # CloudNativePG plugin for kubectl
 brew "kubectl-cnpg"
-# Kubernetes command-line interface
-brew "kubernetes-cli"
-# Tool that can switch between kubectl contexts easily and create aliases
-brew "kubectx"
 # Easily check your clusters for use of deprecated APIs
 brew "kubent"
-# Kubernetes controller and tool for one-way encrypted Secrets
-brew "kubeseal"
 # Logging tool for Kubernetes with a real-time web dashboard
 brew "kubetail"
-# Template-free customization of Kubernetes YAML manifests
-brew "kustomize"
 # C library implementing the SSH2 protocol
 brew "libssh2"
 # C websockets server library
@@ -181,8 +163,6 @@ brew "rosa-cli"
 brew "ruff"
 # Safe, concurrent, practical language
 brew "rust"
-# Static analysis and lint tool, for (ba)sh scripts
-brew "shellcheck"
 # Editor of encrypted files
 brew "sops"
 # Command-line interface for https://speedtest.net bandwidth tests
@@ -209,8 +189,6 @@ brew "uv"
 brew "wget"
 # ISO9660+RR manipulation tool
 brew "xorriso"
-# Linter for YAML files
-brew "yamllint"
 # Tool for managing your YubiKey configuration
 brew "ykman"
 # YubiKey personalization library and tool

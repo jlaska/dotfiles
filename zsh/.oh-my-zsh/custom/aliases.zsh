@@ -15,4 +15,3 @@ alias irc='screen -DR irc'
 alias gvim='mvim'
 alias lvim='vim -c "normal '\''0"'
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
-alias python='/opt/homebrew/bin/python3'
