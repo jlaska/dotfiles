@@ -28,7 +28,7 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 | [npm](https://www.npmjs.com/) | `~/.npmrc` |
 | [SSH](https://www.openssh.com/) | `~/.ssh/config`, `~/.ssh/id_yubikey.pub` |
 | [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
-| [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,safe-chain,sops,yubikey,zz-mise}.zsh` |
+| [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.zshenv`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,safe-chain,sops,yubikey,zz-mise}.zsh` |
 
 > **Oh My Zsh plugin prerequisites** — the following must be cloned once per machine (`make install-omz-plugins` handles this):
 >
