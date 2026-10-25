@@ -26,6 +26,7 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 | [LDAP](https://www.openldap.org/) | `~/.ldaprc` |
 | [mise](https://mise.jdx.dev/) | `~/.config/mise/config.toml` (runtimes and CLI tools; `make install-mise`) |
 | [npm](https://www.npmjs.com/) | `~/.npmrc` |
+| [OpenCode](https://opencode.ai/) | `~/.config/opencode/opencode.jsonc` |
 | [SSH](https://www.openssh.com/) | `~/.ssh/config`, `~/.ssh/id_yubikey.pub` |
 | [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
 | [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.zshenv`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,safe-chain,sops,yubikey,zz-mise}.zsh` |

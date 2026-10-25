@@ -1,0 +1,282 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "jira-mcp-server": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "mcp-atlassian"
+      ],
+      "enabled": true,
+      "environment": {
+        "JIRA_URL": "https://redhat.atlassian.net",
+        "JIRA_USERNAME": "jlaska@redhat.com",
+        "JIRA_API_TOKEN": "{env:JIRA_MCP_API_TOKEN}"
+      }
+    }
+  },
+  "provider": {
+    "litellm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LiteLLM",
+      "options": {
+        "baseURL": "https://litellm.internal.keener.us/v1"
+      },
+      "models": {
+        "gpt-6.1-sol": {
+          "name": "GPT-6.1 Sol (ChatGPT)",
+          "limit": {
+            "context": 1050000,
+            "output": 128000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "gpt-6-luna": {
+          "name": "GPT-6 Luna (ChatGPT)",
+          "limit": {
+            "context": 1050000,
+            "output": 128000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "gpt-5.6-sol": {
+          "name": "GPT-5.6 Sol (ChatGPT)",
+          "limit": {
+            "context": 1050000,
+            "output": 128000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "gpt-5.6-terra": {
+          "name": "GPT-5.6 Terra (ChatGPT)",
+          "limit": {
+            "context": 1050000,
+            "output": 128000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "gpt-5.6-luna": {
+          "name": "GPT-5.6 Luna (ChatGPT)",
+          "limit": {
+            "context": 1050000,
+            "output": 128000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "go-kimi-k3": {
+          "name": "Kimi K3 (Go)",
+          "limit": {
+            "context": 1048576,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "go-kimi-k3.1-pro": {
+          "name": "Kimi K3.1 Pro (Go)",
+          "limit": {
+            "context": 1048576,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "go-kimi-k2.7-code": {
+          "name": "Kimi K2.7 Code (Go)",
+          "limit": {
+            "context": 262144,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "go-minimax-m3": {
+          "name": "MiniMax M3 (Go)",
+          "limit": {
+            "context": 1000000,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "go-mimo-v2.5": {
+          "name": "MiMo v2.5 (Go)",
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "go-mimo-v2.6-pro": {
+          "name": "MiMo v2.6 Pro (Go)",
+          "limit": {
+            "context": 1048576,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "go-glm-5.3": {
+          "name": "GLM 5.3 (Go)",
+          "limit": {
+            "context": 1000000,
+            "output": 131072
+          }
+        },
+        "go-qwen3.7-plus": {
+          "name": "Qwen3.7 Plus (Go)",
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "go-qwen3.8-max": {
+          "name": "Qwen3.8 Max (Go)",
+          "limit": {
+            "context": 1000000,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "go-qwen3.8-flash": {
+          "name": "Qwen3.8 Flash (Go)",
+          "limit": {
+            "context": 1000000,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "go-deepseek-v4.1-flash": {
+          "name": "DeepSeek v4.1 Flash (Go)",
+          "limit": {
+            "context": 1000000,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "grok-3-fast-latest": {
+          "name": "Grok 3 Fast"
+        },
+        "grok-3-mini-fast-latest": {
+          "name": "Grok 3 Mini Fast"
+        }
+      }
+    }
+  }
+}
