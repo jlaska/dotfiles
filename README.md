@@ -16,6 +16,7 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 |---------|--------------|
 | [Ansible](https://docs.ansible.com/) | `~/.ansible.cfg` |
 | [AWS CLI](https://aws.amazon.com/cli/) | `~/.aws/config` |
+| [rsync](https://rsync.samba.org/) backup | `~/.config/backup/excludes.txt` |
 | [Homebrew](https://brew.sh/) | `~/Brewfile` |
 | [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
 | [Containers](https://github.com/containers/common) | `~/.config/containers/registries.conf` |

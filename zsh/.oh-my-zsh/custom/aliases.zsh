@@ -14,4 +14,7 @@ alias fg+="fg +"
 alias irc='screen -DR irc'
 alias gvim='mvim'
 alias lvim='vim -c "normal '\''0"'
-alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+MACOS_TAILSCALE_PATH="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+if [ -f ${MACOS_TAILSCALE_PATH} ]; then
+    alias tailscale="${MACOS_TAILSCALE_PATH}"
+fi
