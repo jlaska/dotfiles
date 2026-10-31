@@ -24,3 +24,7 @@
 # export ANTHROPIC_AUTH_TOKEN="$(security find-generic-password -s "litellm-bearer-token" -a "$USER" -w 2>/dev/null)"
 # export ANTHROPIC_CUSTOM_HEADERS="$(security find-generic-password -s "anthropic-custom-headers" -a "$USER" -w 2>/dev/null)"
 # export ANTHROPIC_CUSTOM_HEADERS="x-litellm-api-key: Bearer $(security find-generic-password -s "litellm-bearer-token" -a "$USER" -w)"
+
+# GitHub MCP server auth — reuses the gh CLI token (refresh with: gh auth login -h github.com)
+# MCP header in ~/.claude.json: "Authorization": "Bearer ${GITHUB_MCP_TOKEN}"
+(( $+commands[gh] )) && export GITHUB_MCP_TOKEN="$(gh auth token 2>/dev/null)"
