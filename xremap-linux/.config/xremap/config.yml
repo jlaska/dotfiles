@@ -56,13 +56,16 @@ keymap:
       Super-Shift-LeftBrace: Ctrl-PageUp
       # Select tab N (macOS Cmd-1..9; Cmd-9 = last tab in browsers).
       # Intercepted here, so GNOME's Super-N app launcher never fires.
-      Super-KEY_1: Ctrl-KEY_1
-      Super-KEY_2: Ctrl-KEY_2
-      Super-KEY_3: Ctrl-KEY_3
-      Super-KEY_4: Ctrl-KEY_4
-      Super-KEY_5: Ctrl-KEY_5
-      Super-KEY_6: Ctrl-KEY_6
-      Super-KEY_7: Ctrl-KEY_7
-      Super-KEY_8: Ctrl-KEY_8
-      Super-KEY_9: Ctrl-KEY_9
+      # Alt-N, not Ctrl-N: Linux Firefox only accepts Alt-N for tabs,
+      # while Chromium-based browsers accept both.
+      Super-KEY_1: Alt-KEY_1
+      Super-KEY_2: Alt-KEY_2
+      Super-KEY_3: Alt-KEY_3
+      Super-KEY_4: Alt-KEY_4
+      Super-KEY_5: Alt-KEY_5
+      Super-KEY_6: Alt-KEY_6
+      Super-KEY_7: Alt-KEY_7
+      Super-KEY_8: Alt-KEY_8
+      Super-KEY_9: Alt-KEY_9
+      # Cmd-0 on macOS resets zoom
       Super-KEY_0: Ctrl-KEY_0
