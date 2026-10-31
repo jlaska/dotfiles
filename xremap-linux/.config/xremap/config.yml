@@ -1,4 +1,14 @@
 keymap:
+  # GNOME shell shortcuts, in every app. Listed first so they win over
+  # the per-app Super-KEY_N rules, which would otherwise turn
+  # Shift-Super-N into Alt-Shift-N.
+  - name: GNOME shell passthrough
+    remap:
+      # Screenshots (GNOME binds Shift-Super-3/4/5 like macOS)
+      Super-Shift-KEY_3: Super-Shift-KEY_3
+      Super-Shift-KEY_4: Super-Shift-KEY_4
+      Super-Shift-KEY_5: Super-Shift-KEY_5
+
   # GNOME terminals: Command controls terminal UI;
   # physical Control remains untouched for the shell.
   - name: macOS Terminal
@@ -50,10 +60,6 @@ keymap:
       Ctrl-Super-Q: Super-L
       # Toggle fullscreen (macOS Ctrl-Cmd-F)
       Ctrl-Super-F: F11
-      # Screenshots (macOS Shift-Cmd-3 full screen, Shift-Cmd-4/5 interactive)
-      Super-Shift-KEY_3: Shift-Print
-      Super-Shift-KEY_4: Print
-      Super-Shift-KEY_5: Print
       # Line / document navigation; Shift-select works via inexact match
       Super-Left: Home
       Super-Right: End
