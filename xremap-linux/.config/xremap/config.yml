@@ -45,6 +45,8 @@ keymap:
       # Option-Left/Right word movement (oh-my-zsh binds Ctrl-Left/Right)
       Alt-Left: Ctrl-Left
       Alt-Right: Ctrl-Right
+      # Newline in Claude Code etc.; VTE sends a plain CR for Shift-Enter
+      Shift-Enter: Ctrl-J
 
   # Regular desktop applications
   - name: macOS GUI shortcuts
