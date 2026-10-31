@@ -1,0 +1,68 @@
+keymap:
+  # GNOME terminals: Command controls terminal UI;
+  # physical Control remains untouched for the shell.
+  - name: macOS Terminal
+    application:
+      only:
+        - org.gnome.Ptyxis
+        - org.gnome.Terminal
+        - org.gnome.Console
+    remap:
+      Super-C: Ctrl-Shift-C
+      Super-V: Ctrl-Shift-V
+      Super-T: Ctrl-Shift-T
+      Super-W: Ctrl-Shift-W
+      Super-N: Ctrl-Shift-N
+      Super-F: Ctrl-Shift-F
+      # Switch tabs (macOS Cmd-Shift-] / Cmd-Shift-[)
+      Super-Shift-RightBrace: Ctrl-PageDown
+      Super-Shift-LeftBrace: Ctrl-PageUp
+      # Select tab N (macOS Cmd-1..9); Ptyxis/GNOME Terminal use Alt-N
+      Super-KEY_1: Alt-KEY_1
+      Super-KEY_2: Alt-KEY_2
+      Super-KEY_3: Alt-KEY_3
+      Super-KEY_4: Alt-KEY_4
+      Super-KEY_5: Alt-KEY_5
+      Super-KEY_6: Alt-KEY_6
+      Super-KEY_7: Alt-KEY_7
+      Super-KEY_8: Alt-KEY_8
+      Super-KEY_9: Alt-KEY_9
+      Super-KEY_0: Alt-KEY_0
+
+  # Regular desktop applications
+  - name: macOS GUI shortcuts
+    application:
+      not:
+        - org.gnome.Ptyxis
+        - org.gnome.Terminal
+        - org.gnome.Console
+    remap:
+      Super-C: Ctrl-C
+      Super-V: Ctrl-V
+      Super-X: Ctrl-X
+      Super-Z: Ctrl-Z
+      Super-A: Ctrl-A
+      Super-S: Ctrl-S
+      Super-F: Ctrl-F
+      Super-L: Ctrl-L
+      Super-T: Ctrl-T
+      Super-W: Ctrl-W
+      Super-N: Ctrl-N
+      Super-R: Ctrl-R
+      Super-P: Ctrl-P
+      Super-Q: Ctrl-Q
+      # Switch tabs (macOS Cmd-Shift-] / Cmd-Shift-[)
+      Super-Shift-RightBrace: Ctrl-PageDown
+      Super-Shift-LeftBrace: Ctrl-PageUp
+      # Select tab N (macOS Cmd-1..9; Cmd-9 = last tab in browsers).
+      # Intercepted here, so GNOME's Super-N app launcher never fires.
+      Super-KEY_1: Ctrl-KEY_1
+      Super-KEY_2: Ctrl-KEY_2
+      Super-KEY_3: Ctrl-KEY_3
+      Super-KEY_4: Ctrl-KEY_4
+      Super-KEY_5: Ctrl-KEY_5
+      Super-KEY_6: Ctrl-KEY_6
+      Super-KEY_7: Ctrl-KEY_7
+      Super-KEY_8: Ctrl-KEY_8
+      Super-KEY_9: Ctrl-KEY_9
+      Super-KEY_0: Ctrl-KEY_0

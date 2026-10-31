@@ -1,0 +1,11 @@
+[Unit]
+Description=Xremap keyboard remapping
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/xremap --watch=config,device %h/.config/xremap/config.yml
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

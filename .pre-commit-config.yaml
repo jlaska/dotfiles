@@ -27,3 +27,5 @@ repos:
     hooks:
       - id: markdownlint
         args: [--config, .markdownlint.json]
+        # Use mise's node; nodeenv can't parse pre-release versions in node's index
+        language_version: system

@@ -23,14 +23,17 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 | [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |
 | [Git](https://git-scm.com/) | `~/.gitconfig`, `~/.gitconfig-redhat`, `~/.config/git/ignore` |
 | [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
-| [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,gpg-agent,dirmngr,scdaemon}.conf` |
+| [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,dirmngr}.conf`; `~/.gnupg/{gpg-agent,scdaemon}.conf` from `gnupg-darwin` / `gnupg-linux` |
 | [LDAP](https://www.openldap.org/) | `~/.ldaprc` |
 | [mise](https://mise.jdx.dev/) | `~/.config/mise/config.toml` (runtimes and CLI tools; `make install-mise`) |
 | [npm](https://www.npmjs.com/) | `~/.npmrc` |
 | [OpenCode](https://opencode.ai/) | `~/.config/opencode/opencode.jsonc` |
 | [SSH](https://www.openssh.com/) | `~/.ssh/config`, `~/.ssh/id_yubikey.pub` |
 | [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
+| [xremap](https://github.com/xremap/xremap) (Linux) | `~/.config/xremap/config.yml`, `~/.config/systemd/user/xremap.service` |
 | [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.zshenv`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,safe-chain,sops,yubikey,zz-mise}.zsh` |
+
+Packages suffixed `-darwin` or `-linux` are only stowed on the matching OS (`uname -s`).
 
 > **Oh My Zsh plugin prerequisites** — the following must be cloned once per machine (`make install-omz-plugins` handles this):
 >

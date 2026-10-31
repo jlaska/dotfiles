@@ -1,4 +1,8 @@
-PACKAGES           := $(shell find . -mindepth 1 -maxdepth 1 -type d -not -name '.*' | sed 's|./||')
+OS                 := $(shell uname -s)
+OS_LOWER           := $(shell uname -s | tr '[:upper:]' '[:lower:]')
+# Packages suffixed -darwin / -linux are only stowed on the matching OS
+ALL_PACKAGES       := $(shell find . -mindepth 1 -maxdepth 1 -type d -not -name '.*' | sed 's|./||')
+PACKAGES           := $(filter-out %-darwin %-linux,$(ALL_PACKAGES)) $(filter %-$(OS_LOWER),$(ALL_PACKAGES))
 OMZ_PLUGINS        := $(HOME)/.oh-my-zsh/custom/plugins
 OMZ_PLUGIN_TARGETS := $(addprefix $(OMZ_PLUGINS)/,zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
 VIM_PACK           := $(HOME)/.vim/pack/plugins/start
@@ -11,8 +15,13 @@ VIM_PLUGIN_TARGETS := $(addprefix $(VIM_PACK)/,ansible-vim ctrlp.vim editorconfi
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+ifeq ($(OS),Darwin)
 install-xcode: ## Install Xcode Command Line Tools if missing
 	@xcode-select -p >/dev/null 2>&1 || { echo "Installing Xcode Command Line Tools..."; xcode-select --install; echo "Re-run 'make install' after Xcode CLT installation completes."; exit 1; }
+else
+install-xcode: ## Install Xcode Command Line Tools if missing
+	@echo "Skipping 'install-xcode' target on $(OS)."
+endif
 
 install-brew-cli: install-xcode ## Install Homebrew if missing
 	@command -v brew >/dev/null 2>&1 || { echo "Installing Homebrew..."; /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; }

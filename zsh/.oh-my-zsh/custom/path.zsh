@@ -11,13 +11,15 @@ if [ -d "$HOME/Applications" ]; then
 fi
 
 # Add Homebrew to PATH
-if [ -f "/opt/homebrew/bin/brew" ]; then
-    BREW_PREFIX="/opt/homebrew"
-    export PATH="$HOME/Applications:$BREW_PREFIX/sbin:$BREW_PREFIX/bin:$PATH"
+for BREW_PREFIX in "/home/linuxbrew/.linuxbrew" "/opt/homebrew" ; do
+  if [ -f "${BREW_PREFIX}/bin/brew" ]; then
+      export PATH="$BREW_PREFIX/sbin:$BREW_PREFIX/bin:$PATH"
 
-    # Add HOMEBREW python to PATH - attempting to fix "update_current_git_vars:5: command not found: python"
-    export PATH="$BREW_PREFIX/opt/python@3/libexec/bin:$PATH"
-fi
+      # Add HOMEBREW python to PATH - attempting to fix "update_current_git_vars:5: command not found: python"
+      export PATH="$BREW_PREFIX/opt/python@3/libexec/bin:$PATH"
+      break
+  fi
+done
 
 # Add MacOS Homebrew psql support
 # $ brew install postgresql@16
