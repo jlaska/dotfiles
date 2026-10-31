@@ -28,6 +28,13 @@ keymap:
       Super-KEY_8: Alt-KEY_8
       Super-KEY_9: Alt-KEY_9
       Super-KEY_0: Alt-KEY_0
+      # Line navigation and editing for the zsh line editor
+      Super-Left: Home
+      Super-Right: End
+      Super-Backspace: Ctrl-U
+      # Option-Left/Right word movement (oh-my-zsh binds Ctrl-Left/Right)
+      Alt-Left: Ctrl-Left
+      Alt-Right: Ctrl-Right
 
   # Regular desktop applications
   - name: macOS GUI shortcuts
@@ -37,6 +44,31 @@ keymap:
         - org.gnome.Terminal
         - org.gnome.Console
     remap:
+      # Combos with extra modifiers come first so they win over the
+      # inexact matches below (e.g. Super-Q would turn Ctrl-Super-Q into Ctrl-Q).
+      # Lock screen (macOS Ctrl-Cmd-Q); Super-L is GNOME's lock shortcut
+      Ctrl-Super-Q: Super-L
+      # Toggle fullscreen (macOS Ctrl-Cmd-F)
+      Ctrl-Super-F: F11
+      # Screenshots (macOS Shift-Cmd-3 full screen, Shift-Cmd-4/5 interactive)
+      Super-Shift-KEY_3: Shift-Print
+      Super-Shift-KEY_4: Print
+      Super-Shift-KEY_5: Print
+      # Line / document navigation; Shift-select works via inexact match
+      Super-Left: Home
+      Super-Right: End
+      Super-Up: Ctrl-Home
+      Super-Down: Ctrl-End
+      Super-Backspace: [Shift-Home, Backspace]
+      # Option = word movement and deletion
+      Alt-Left: Ctrl-Left
+      Alt-Right: Ctrl-Right
+      Alt-Backspace: Ctrl-Backspace
+      # Back/Forward (macOS Cmd-[ / Cmd-]), since Alt-Left is now word-left
+      Super-LeftBrace: Alt-Left
+      Super-RightBrace: Alt-Right
+      # Minimize (macOS Cmd-M); Super-H is GNOME's minimize shortcut
+      Super-M: Super-H
       Super-C: Ctrl-C
       Super-V: Ctrl-V
       Super-X: Ctrl-X
@@ -51,6 +83,17 @@ keymap:
       Super-R: Ctrl-R
       Super-P: Ctrl-P
       Super-Q: Ctrl-Q
+      Super-O: Ctrl-O
+      Super-G: Ctrl-G
+      Super-D: Ctrl-D
+      Super-B: Ctrl-B
+      Super-I: Ctrl-I
+      Super-U: Ctrl-U
+      Super-K: Ctrl-K
+      Super-Comma: Ctrl-Comma
+      # Zoom in/out (Cmd-0 reset is below)
+      Super-Equal: Ctrl-Equal
+      Super-Minus: Ctrl-Minus
       # Switch tabs (macOS Cmd-Shift-] / Cmd-Shift-[)
       Super-Shift-RightBrace: Ctrl-PageDown
       Super-Shift-LeftBrace: Ctrl-PageUp
