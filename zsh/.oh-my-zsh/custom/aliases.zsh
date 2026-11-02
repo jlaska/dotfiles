@@ -18,3 +18,8 @@ MACOS_TAILSCALE_PATH="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 if [ -f ${MACOS_TAILSCALE_PATH} ]; then
     alias tailscale="${MACOS_TAILSCALE_PATH}"
 fi
+# macOS-style clipboard commands on Linux (dnf install wl-clipboard)
+if [[ $OSTYPE == linux* ]] && (( $+commands[wl-copy] )); then
+    alias pbcopy='wl-copy'
+    alias pbpaste='wl-paste --no-newline'
+fi
