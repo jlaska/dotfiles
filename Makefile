@@ -48,6 +48,7 @@ install-brew: ## Install Homebrew packages from Brewfile
 brew-dump: ## Refresh Brewfile from currently installed packages
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
 	brew bundle dump --file=brew/Brewfile --describe --force
+	@grep -q 'if OS.mac?' brew/Brewfile || echo "WARNING: dump dropped OS guards (podman, qemu); re-add 'if OS.mac?' before committing"
 
 .git/hooks/pre-commit:
 	@command -v pre-commit >/dev/null 2>&1 && pre-commit install || echo "pre-commit not yet installed, skipping hook setup"

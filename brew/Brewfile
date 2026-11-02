@@ -128,7 +128,7 @@ brew "pinentry-mac"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Tool for managing OCI containers and pods
-brew "podman"
+brew "podman" if OS.mac?  # Linux uses distro podman (dnf)
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Object-relational database system
@@ -148,7 +148,7 @@ brew "python@3.11"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.12"
 # Generic machine emulator and virtualizer
-brew "qemu"
+brew "qemu" if OS.mac?  # backs `podman machine`; not needed on Linux
 # QR Code generation
 brew "qrencode"
 # Rsync for cloud storage
