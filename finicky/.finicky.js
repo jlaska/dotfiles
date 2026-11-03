@@ -45,7 +45,16 @@ export default {
       match: finicky.matchHostnames(/(notebooklm|docs|calendar|drive)\.google\.com/),
       browser: workBrowser
     },
-    /* Anything .redhat.com */
+    /* Anything Supa */
+    {
+      match: finicky.matchHostnames(/(rippling|hibob|workleap|avoma|hikizuna|vanta|notion|okta)\.com/),
+      browser: workBrowser
+    },
+    {
+      match: finicky.matchHostnames(/supabase\.io/),
+      browser: workBrowser
+    },
+    /* Anything RHT */
     {
       match: /^https?:\/\/.*redhat\.com\/.*$/,
       browser: workBrowser
