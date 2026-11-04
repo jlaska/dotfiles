@@ -10,7 +10,7 @@ VIM_PLUGIN_TARGETS := $(addprefix $(VIM_PACK)/,ansible-vim ctrlp.vim editorconfi
 
 .DEFAULT_GOAL := help
 
-.PHONY: help install-xcode install-brew-cli install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins install-mise import-keys lint pre-commit check
+.PHONY: help install-xcode install-brew-cli install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins install-mise install-docker-config import-keys lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -37,9 +37,29 @@ install: install-deps install-omz-plugins install-vim-plugins .git/hooks/pre-com
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done
 	@$(MAKE) --no-print-directory install-mise
+	@$(MAKE) --no-print-directory install-docker-config
 
 install-mise: ## Install tools pinned in ~/.config/mise/config.toml (requires mise from Brewfile)
 	@command -v mise >/dev/null 2>&1 && mise install --yes || echo "mise not found; run 'make install-brew' first"
+
+# ~/.docker/config.json is not stowed: the docker CLI and Docker Desktop rewrite it
+# (replacing a stow symlink) and it can hold registry auth. Merge only `credsStore`.
+# Linux: secretservice helper from mise. macOS: keep Docker Desktop's `desktop` if set,
+# otherwise osxkeychain (brew docker-credential-helper).
+DOCKER_CONFIG_FILE := $(HOME)/.docker/config.json
+ifeq ($(OS),Darwin)
+DOCKER_JQ_FILTER   := .credsStore //= "osxkeychain"
+else
+DOCKER_JQ_FILTER   := .credsStore = "secretservice"
+endif
+
+install-docker-config: ## Set credsStore in ~/.docker/config.json (preserves other keys, never touches auths)
+	@command -v jq >/dev/null 2>&1 || { echo "jq not found; install it (dnf/brew install jq)"; exit 1; }
+	@umask 077 && mkdir -p $(dir $(DOCKER_CONFIG_FILE)) && \
+		{ [ -s $(DOCKER_CONFIG_FILE) ] || echo '{}' > $(DOCKER_CONFIG_FILE); } && \
+		jq '$(DOCKER_JQ_FILTER)' $(DOCKER_CONFIG_FILE) > $(DOCKER_CONFIG_FILE).tmp && \
+		command mv -f $(DOCKER_CONFIG_FILE).tmp $(DOCKER_CONFIG_FILE) && \
+		echo "docker credsStore: $$(jq -r .credsStore $(DOCKER_CONFIG_FILE))"
 
 install-brew: ## Install Homebrew packages from Brewfile
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }

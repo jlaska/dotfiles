@@ -20,12 +20,13 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 | [Homebrew](https://brew.sh/) | `~/Brewfile` |
 | [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
 | [Containers](https://github.com/containers/common) | `~/.config/containers/registries.conf` |
+| [Docker](https://docs.docker.com/reference/cli/docker/) credential store | `~/.docker/config.json` `credsStore` only, merged by `make install-docker-config` (not stowed) |
 | [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |
 | [Git](https://git-scm.com/) | `~/.gitconfig`, `~/.gitconfig-redhat`, `~/.config/git/ignore` |
 | [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
 | [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,dirmngr}.conf`; `~/.gnupg/{gpg-agent,scdaemon}.conf` from `gnupg-darwin` / `gnupg-linux` |
 | [LDAP](https://www.openldap.org/) | `~/.ldaprc` |
-| [mise](https://mise.jdx.dev/) | `~/.config/mise/config.toml` (runtimes and CLI tools; `make install-mise`) |
+| [mise](https://mise.jdx.dev/) | `~/.config/mise/config.toml` (runtimes and CLI tools, incl. the Linux `docker-credential-secretservice` helper; `make install-mise`) |
 | [npm](https://www.npmjs.com/) | `~/.npmrc` |
 | [OpenCode](https://opencode.ai/) | `~/.config/opencode/opencode.jsonc` |
 | [SSH](https://www.openssh.com/) | `~/.ssh/config`, `~/.ssh/id_yubikey.pub` |
@@ -40,6 +41,10 @@ Packages suffixed `-darwin` or `-linux` are only stowed on the matching OS (`una
 > - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 > - [zsh-completions](https://github.com/zsh-users/zsh-completions)
 > - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+
+<!-- -->
+
+> **Docker credential helper** — `~/.docker/config.json` is deliberately not a stow package: the docker CLI and Docker Desktop rewrite it (replacing any symlink) and it can hold registry auth, so `make install-docker-config` uses `jq` to set only `credsStore` and leave everything else alone. Linux sets `secretservice` (helper installed by mise; needs a running Secret Service such as GNOME Keyring). macOS keeps an existing `desktop` value, otherwise sets `osxkeychain` (brew `docker-credential-helper`). Podman's own auth (`~/.config/containers/auth.json`) is not managed.
 
 <!-- -->
 

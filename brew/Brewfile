@@ -43,6 +43,8 @@ brew "clusterctl"
 brew "coreutils"
 # Enterprise friendly way of detecting and preventing secrets in code
 brew "detect-secrets"
+# Docker credential helper for macOS Keychain (osxkeychain); Linux uses mise
+brew "docker-credential-helper" if OS.mac?
 # ESP8266 and ESP32 serial bootloader utility
 brew "esptool"
 # Key value store for shared configuration and service discovery

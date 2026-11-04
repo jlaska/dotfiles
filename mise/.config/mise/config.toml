@@ -24,3 +24,11 @@ stern = "1.34.0"
 talosctl = "1.14.4"
 yamllint = "1.38.0"
 "aqua:cloudnative-pg/cloudnative-pg/kubectl-cnpg" = "1.30.1"
+
+# Docker credential helper (Linux only; macOS uses brew docker-credential-helper).
+# The release ships one raw binary per helper, so select secretservice explicitly.
+[tools."github:docker/docker-credential-helpers"]
+version = "0.9.12"
+os = ["linux"]
+asset_pattern = "docker-credential-secretservice-v*.linux-amd64"
+bin = "docker-credential-secretservice"
