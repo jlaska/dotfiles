@@ -1,7 +1,9 @@
+# signingkey is pinned to the personal signing subkey (the cert also carries a work
+# signing subkey); machines override via ~/.gitconfig.local.
 [user]
     name = James Laska
     email = 1051173+jlaska@users.noreply.github.com
-    signingkey = 0x07E5ACD7B3165BD3
+    signingkey = CC27416519C35FF9!
 [color]
     diff = auto
     status = auto
@@ -27,11 +29,12 @@
     hide-dirty = 1
 [tag]
     gpgSign = true
-[includeIf "hasconfig:remote.*.url:git@gitlab.cee.redhat.com:*/**"]
-    path = ~/.gitconfig-redhat
 [credential "https://github.com"]
 	helper =
 	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
 	helper =
 	helper = !gh auth git-credential
+# Machine-local and untracked; must stay last so it overrides the settings above.
+[include]
+    path = ~/.gitconfig.local
