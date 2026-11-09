@@ -47,7 +47,19 @@ export default {
     },
     /* Anything Supa */
     {
-      match: finicky.matchHostnames(/(rippling|hibob|workleap|avoma|hikizuna|vanta|notion|okta)\.com/),
+      match: finicky.matchHostnames(/(rippling|hibob|workleap|avoma|hikizuna|vanta|okta)\.com/),
+      browser: workBrowser
+    },
+    {
+      match: finicky.matchHostnames(/incident\.io/),
+      browser: workBrowser
+    },
+    {
+      match: finicky.matchHostnames(/linear\.app/),
+      browser: workBrowser
+    },
+    {
+      match: finicky.matchHostnames(/notion\.(so|com)/),
       browser: workBrowser
     },
     {
