@@ -2,6 +2,16 @@
 
 Personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
+## TL;DR
+
+- `make install` stows every top-level package (`-darwin` / `-linux` packages only on that OS).
+- Per-machine settings live in untracked `*.local` files. Secrets never land here.
+- **YubiKeys:** one GPG cert (`0x07E5ACD7B3165BD3`), one GitHub identity, and two key
+  pairs. The personal pair is used on Fedora, and the work pair on the work Mac. The
+  procedures and troubleshooting are in the Claude skill
+  [`yubikey-operations`](claude/.claude/skills/yubikey-operations/SKILL.md) (stowed to `~/.claude/skills/`, so it works in any directory).
+- Claude Code context for this repo: [CLAUDE.md](CLAUDE.md).
+
 ## Quick start
 
 ```bash
@@ -18,18 +28,18 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 | [AWS CLI](https://aws.amazon.com/cli/) | `~/.aws/config` |
 | [rsync](https://rsync.samba.org/) backup | `~/.config/backup/excludes.txt` |
 | [Homebrew](https://brew.sh/) | `~/Brewfile` |
-| [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
+| [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md`, `~/.claude/skills/yubikey-operations/` |
 | [Containers](https://github.com/containers/common) | `~/.config/containers/registries.conf` |
 | [Docker](https://docs.docker.com/reference/cli/docker/) credential store | `~/.docker/config.json` `credsStore` only, merged by `make install-docker-config` (not stowed) |
 | [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |
-| [Git](https://git-scm.com/) | `~/.gitconfig`, `~/.gitconfig-redhat`, `~/.config/git/ignore` |
+| [Git](https://git-scm.com/) | `~/.gitconfig` (includes untracked `~/.gitconfig.local`), `~/.config/git/ignore` |
 | [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
 | [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,dirmngr}.conf`; `~/.gnupg/{gpg-agent,scdaemon}.conf` from `gnupg-darwin` / `gnupg-linux` |
 | [LDAP](https://www.openldap.org/) | `~/.ldaprc` |
 | [mise](https://mise.jdx.dev/) | `~/.config/mise/config.toml` (runtimes and CLI tools, incl. the Linux `docker-credential-secretservice` helper; `make install-mise`) |
 | [npm](https://www.npmjs.com/) | `~/.npmrc` |
 | [OpenCode](https://opencode.ai/) | `~/.config/opencode/opencode.jsonc` |
-| [SSH](https://www.openssh.com/) | `~/.ssh/config`, `~/.ssh/id_yubikey.pub` |
+| [SSH](https://www.openssh.com/) | `~/.ssh/config` (includes untracked `~/.ssh/config.local`), `~/.ssh/id_yubikey.pub`, `~/.ssh/id_yubikey_work.pub` |
 | [Vim](https://www.vim.org/) | `~/.vimrc`, `~/.vim/init/*.vim`, `~/.vim/spell/en.utf-8.add` |
 | [xremap](https://github.com/xremap/xremap) (Linux) | `~/.config/xremap/config.yml`, `~/.config/systemd/user/xremap.service` |
 | [Zsh / Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `~/.zshrc`, `~/.zshenv`, `~/.oh-my-zsh/custom/{aliases,claude,jira,path,prompt,safe-chain,sops,yubikey,zz-mise}.zsh` |
@@ -68,11 +78,13 @@ macOS Keychain on each machine, where shell config and `make import-keys` read i
 `security find-generic-password -s <item> -a "$USER" -w`.
 
 YubiKey-resident keys (signing, encryption, SSH auth) need no backup; `gpg --card-status`
-recreates the local stubs. There are two YubiKeys holding the same subkeys — primary
-(5C Nano, serial 38083705) and a backup (serial 37886274). After switching cards, run `yk-switch` (alias in
-`yubikey.zsh`) so the stubs point at the inserted card. The offline certify (primary) key
-`FE149E5D50B99EC9EE32B49507E5ACD7B3165BD3` is stored separately and is not on this machine. The public key is fetched from
-`https://github.com/jlaska.gpg`.
+recreates the local stubs. Each pair (personal, work) is two YubiKeys holding the same
+subkeys. After switching cards within a pair, run `yk-switch` (alias in `yubikey.zsh`) so
+the stubs point at the inserted card. The offline certify (primary) key
+`FE149E5D50B99EC9EE32B49507E5ACD7B3165BD3` is stored separately and is not on this machine.
+The public key is fetched from `https://github.com/jlaska.gpg`. For per-machine SSH and
+git signing setup, see the `yubikey-operations` skill's
+[procedures](claude/.claude/skills/yubikey-operations/references/procedures.md#new-machine).
 
 | Keychain item (`-s`) | Contents (single-line base64) |
 |----------------------|-------------------------------|
@@ -85,7 +97,7 @@ recreates the local stubs. There are two YubiKeys holding the same subkeys — p
 # Populate Keychain from Vaultwarden (repeat per item), then:
 security add-generic-password -U -s gpg-sops-key -a "$USER" -w "<base64 from Vaultwarden>"
 make import-keys
-ssh-add -L                     # should list cardno:38_083_705
+ssh-add -L                     # should list a cardno: key (this machine's pair)
 git commit --allow-empty -m t  # should prompt for YubiKey PIN
 ```
 
