@@ -28,7 +28,7 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 | [AWS CLI](https://aws.amazon.com/cli/) | `~/.aws/config` |
 | [rsync](https://rsync.samba.org/) backup | `~/.config/backup/excludes.txt` |
 | [Homebrew](https://brew.sh/) | `~/Brewfile` |
-| [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md`, `~/.claude/skills/yubikey-operations/` |
+| [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json` (shared by all machines), `~/.claude/CLAUDE.md`, `~/.claude/skills/yubikey-operations/`; `~/.claude.json` `mcpServers` only, merged from `claude/mcp.json` by `make install-claude-mcp` (not stowed). Backend per invocation: `claude`, `claude-api`, `claude-litellm` in `claude.zsh` |
 | [Containers](https://github.com/containers/common) | `~/.config/containers/registries.conf` |
 | [Docker](https://docs.docker.com/reference/cli/docker/) credential store | `~/.docker/config.json` `credsStore` only, merged by `make install-docker-config` (not stowed) |
 | [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |

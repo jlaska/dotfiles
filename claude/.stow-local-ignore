@@ -1,0 +1,2 @@
+# Repo-only: merged into ~/.claude.json by `make install-claude-mcp`, not stowed.
+^/mcp\.json$

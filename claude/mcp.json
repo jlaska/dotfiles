@@ -1,0 +1,6 @@
+{
+  "linkedin": {
+    "command": "uv",
+    "args": ["--directory", "${HOME}/Projects/linkedin-mcp-server", "run", "-m", "linkedin_mcp_server"]
+  }
+}

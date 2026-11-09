@@ -1,30 +1,43 @@
-# All secrets loaded here; per-profile settings.json env blocks blank out the ones each profile doesn't need.
-# See: https://code.claude.com/docs/en/env-vars (settings.json env overrides shell env)
+# Claude Code: one shared ~/.claude/settings.json. The backend is chosen per invocation by
+# environment variables, so nothing here is exported globally.
+#   claude          subscription login (Max on Fedora, Enterprise on the work Mac)
+#   claude-api      Anthropic API key billing
+#   claude-litellm  homelab LiteLLM proxy (routes to Vertex AI, traces to Langfuse)
+# See: https://code.claude.com/docs/en/env-vars
 
-# Vertex credentials (used by work tooling and LiteLLM proxy backend)
-# To update: security add-generic-password -U -s "anthropic-vertex-project-id" -a "$USER" -w "<new-value>"
-# export ANTHROPIC_VERTEX_PROJECT_ID="$(security find-generic-password -s "anthropic-vertex-project-id" -a "$USER" -w 2>/dev/null)"
-# export CLOUD_ML_REGION=global
+_claude_auth_vars=(ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN ANTHROPIC_BASE_URL ANTHROPIC_CUSTOM_HEADERS
+  ANTHROPIC_MODEL ANTHROPIC_DEFAULT_{OPUS,SONNET,HAIKU}_MODEL
+  CLAUDE_CODE_USE_VERTEX ANTHROPIC_VERTEX_PROJECT_ID CLOUD_ML_REGION)
 
-# Direct Vertex disabled — Claude Code routes through LiteLLM proxy (which uses Vertex internally)
-# Re-enable to bypass proxy: export CLAUDE_CODE_USE_VERTEX=1
-# export CLAUDE_CODE_USE_VERTEX=1
+# Read a secret from the OS keyring.
+#   macOS: security add-generic-password -U -s <item> -a "$USER" -w "<value>"
+#   Linux: secret-tool store --label=<item> service <item>
+_claude_secret() {
+  local value
+  if [[ $OSTYPE == darwin* ]]; then
+    value=$(security find-generic-password -s "$1" -a "$USER" -w 2>/dev/null)
+  else
+    value=$(secret-tool lookup service "$1" 2>/dev/null)
+  fi
+  [[ -n $value ]] || { print -u2 "claude: keyring item '$1' not found"; return 1; }
+  print -r -- "$value"
+}
 
-# LiteLLM proxy — routes to Vertex AI via homelab cluster, traces to Langfuse
-# To store base-url key: security add-generic-password -U -s "anthropic-base-url" -a "$USER" -w "<value>"
-# To store master key: security add-generic-password -U -s "litellm-master-key" -a "$USER" -w "<value>"
-# To store custom-header key: security add-generic-password -U -s "anthropic-custom-headers" -a "$USER" -w "<value>"
-# To get key: kubectl get secret litellm-secrets -n litellm -o jsonpath='{.data.PROXY_MASTER_KEY}' | base64 -d
-# export ANTHROPIC_BASE_URL="$(security find-generic-password -s "anthropic-base-url" -a "$USER" -w 2>/dev/null)"
+claude() {
+  (unset $_claude_auth_vars; command claude "$@")
+}
 
-# Used for API billing
-# export ANTHROPIC_API_KEY="$(security find-generic-password -s "litellm-api-key" -a "$USER" -w 2>/dev/null)"
+claude-api() {
+  local key
+  key=$(_claude_secret anthropic-api-key) || return
+  (unset $_claude_auth_vars; ANTHROPIC_API_KEY=$key command claude "$@")
+}
 
-# Used by litellm for claude-max-plan
-# export ANTHROPIC_AUTH_TOKEN="$(security find-generic-password -s "litellm-bearer-token" -a "$USER" -w 2>/dev/null)"
-# export ANTHROPIC_CUSTOM_HEADERS="$(security find-generic-password -s "anthropic-custom-headers" -a "$USER" -w 2>/dev/null)"
-# export ANTHROPIC_CUSTOM_HEADERS="x-litellm-api-key: Bearer $(security find-generic-password -s "litellm-bearer-token" -a "$USER" -w)"
-
-# GitHub MCP server auth — reuses the gh CLI token (refresh with: gh auth login -h github.com)
-# MCP header in ~/.claude.json: "Authorization": "Bearer ${GITHUB_MCP_TOKEN}"
-(( $+commands[gh] )) && export GITHUB_MCP_TOKEN="$(gh auth token 2>/dev/null)"
+# Bearer token: kubectl get secret litellm-secrets -n litellm -o jsonpath='{.data.PROXY_MASTER_KEY}' | base64 -d
+claude-litellm() {
+  local token
+  token=$(_claude_secret litellm-bearer-token) || return
+  (unset $_claude_auth_vars
+    ANTHROPIC_BASE_URL=https://litellm.internal.keener.us ANTHROPIC_AUTH_TOKEN=$token ANTHROPIC_MODEL=opus \
+      command claude "$@")
+}

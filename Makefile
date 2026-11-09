@@ -10,7 +10,7 @@ VIM_PLUGIN_TARGETS := $(addprefix $(VIM_PACK)/,ansible-vim ctrlp.vim editorconfi
 
 .DEFAULT_GOAL := help
 
-.PHONY: help install-xcode install-brew-cli install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins install-mise install-docker-config import-keys lint pre-commit check
+.PHONY: help install-xcode install-brew-cli install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins install-mise install-docker-config install-claude-mcp import-keys lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -38,6 +38,7 @@ install: install-deps install-omz-plugins install-vim-plugins .git/hooks/pre-com
 	done
 	@$(MAKE) --no-print-directory install-mise
 	@$(MAKE) --no-print-directory install-docker-config
+	@$(MAKE) --no-print-directory install-claude-mcp
 
 install-mise: ## Install tools pinned in ~/.config/mise/config.toml (requires mise from Brewfile)
 	@command -v mise >/dev/null 2>&1 && mise install --yes || echo "mise not found; run 'make install-brew' first"
@@ -60,6 +61,19 @@ install-docker-config: ## Set credsStore in ~/.docker/config.json (preserves oth
 		jq '$(DOCKER_JQ_FILTER)' $(DOCKER_CONFIG_FILE) > $(DOCKER_CONFIG_FILE).tmp && \
 		command mv -f $(DOCKER_CONFIG_FILE).tmp $(DOCKER_CONFIG_FILE) && \
 		echo "docker credsStore: $$(jq -r .credsStore $(DOCKER_CONFIG_FILE))"
+
+# ~/.claude.json is not stowed either: Claude Code rewrites it constantly and it holds the
+# login and per-project state. Merge only the user-scope MCP servers from claude/mcp.json;
+# servers added with `claude mcp add` are kept.
+CLAUDE_JSON_FILE := $(HOME)/.claude.json
+
+install-claude-mcp: ## Merge claude/mcp.json into mcpServers in ~/.claude.json (preserves other keys)
+	@command -v jq >/dev/null 2>&1 || { echo "jq not found; install it (dnf/brew install jq)"; exit 1; }
+	@umask 077 && { [ -s $(CLAUDE_JSON_FILE) ] || echo '{}' > $(CLAUDE_JSON_FILE); } && \
+		jq --slurpfile mcp claude/mcp.json '.mcpServers = ((.mcpServers // {}) + $$mcp[0])' \
+			$(CLAUDE_JSON_FILE) > $(CLAUDE_JSON_FILE).tmp && \
+		command mv -f $(CLAUDE_JSON_FILE).tmp $(CLAUDE_JSON_FILE) && \
+		echo "claude mcpServers: $$(jq -r '.mcpServers | keys | join(" ")' $(CLAUDE_JSON_FILE))"
 
 install-brew: ## Install Homebrew packages from Brewfile
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
