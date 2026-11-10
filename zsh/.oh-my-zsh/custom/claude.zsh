@@ -45,6 +45,24 @@ claude-litellm() {
       command claude "$@")
 }
 
-# GitHub MCP server (claude/mcp.json): "Authorization": "Bearer ${GITHUB_COPILOT_BEARER_TOKEN}".
+# Opt-in MCP servers, one file per server in ~/.claude/mcp/. Nothing is enabled globally.
+#   claude-mcp github                 this session only
+#   claude-mcp github linkedin -- -c  extra claude args after --
+# For a project, copy the server into its .mcp.json (shared) or `claude mcp add -s local` (private).
+claude-mcp() {
+  local -a configs
+  while (( $# )) && [[ $1 != -- ]]; do
+    [[ -r ~/.claude/mcp/$1.json ]] || { print -u2 "claude-mcp: no ~/.claude/mcp/$1.json"; return 1; }
+    configs+=(~/.claude/mcp/$1.json); shift
+  done
+  [[ $1 == -- ]] && shift
+  if (( ! $#configs )); then
+    local -a servers=(~/.claude/mcp/*.json(N:t:r))
+    print -u2 "usage: claude-mcp <server>... [-- claude args]  (servers: $servers)"; return 1
+  fi
+  claude --mcp-config $configs "$@"
+}
+
+# GitHub MCP server (~/.claude/mcp/github.json): "Authorization": "Bearer ${GITHUB_COPILOT_BEARER_TOKEN}".
 # The keyring item holds only the PAT (github_pat_…), without "Bearer ".
 () { local t; t=$(_keyring_get github_copilot_bearer_token) && export GITHUB_COPILOT_BEARER_TOKEN=$t }
