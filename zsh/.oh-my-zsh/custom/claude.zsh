@@ -66,3 +66,7 @@ claude-mcp() {
 # GitHub MCP server (~/.claude/mcp/github.json): "Authorization": "Bearer ${GITHUB_COPILOT_BEARER_TOKEN}".
 # The keyring item holds only the PAT (github_pat_…), without "Bearer ".
 () { local t; t=$(_keyring_get github_copilot_bearer_token) && export GITHUB_COPILOT_BEARER_TOKEN=$t }
+
+# LiteLLM proxy credentials for tools that read LITELLM_* from the environment.
+() { local t; t=$(_keyring_get litellm-api-key) && export LITELLM_API_KEY=$t }
+() { local t; t=$(_keyring_get anthropic-base-url) && export LITELLM_BASE_URL=$t }
