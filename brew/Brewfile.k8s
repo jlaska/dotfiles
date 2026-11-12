@@ -18,6 +18,8 @@ brew "kor"
 brew "ksops"
 # SDK for building Kubernetes APIs using CRDs
 brew "kubebuilder"
+# Kubernetes command-line interface
+brew "kubectl"
 # CloudNativePG plugin for kubectl
 brew "kubectl-cnpg"
 # Easily check your clusters for use of deprecated APIs
