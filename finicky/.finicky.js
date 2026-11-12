@@ -63,7 +63,7 @@ export default {
       browser: workBrowser
     },
     {
-      match: finicky.matchHostnames(/supabase\.io/),
+      match: finicky.matchHostnames(/supabase\.(tools|io)/),
       browser: workBrowser
     },
     /* Anything RHT */
