@@ -15,7 +15,7 @@ VIM_PLUGIN_TARGETS := $(addprefix $(VIM_PACK)/,ansible-vim ctrlp.vim editorconfi
 
 .DEFAULT_GOAL := help
 
-.PHONY: $(BREW_PROFILE_TARGETS) help install-xcode install-brew install-brewfile install-deps install brew-dump install-omz-plugins install-vim-plugins install-mise install-docker-config import-keys lint pre-commit check
+.PHONY: $(BREW_PROFILE_TARGETS) help install-xcode install-brew install-brewfile bootstrap install brew-dump install-omz-plugins install-vim-plugins install-mise install-docker-config import-keys lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -26,7 +26,7 @@ help: ## Show available targets
 # One rule, not one per OS: `help` greps this file, so a second "## " rule line would be listed twice.
 install-xcode: ## Install Xcode Command Line Tools if missing
 ifeq ($(OS),Darwin)
-	@xcode-select -p >/dev/null 2>&1 || { echo "Installing Xcode Command Line Tools..."; xcode-select --install; echo "Re-run 'make install' after Xcode CLT installation completes."; exit 1; }
+	@xcode-select -p >/dev/null 2>&1 || { echo "Installing Xcode Command Line Tools..."; xcode-select --install; echo "Re-run 'make bootstrap' after Xcode CLT installation completes."; exit 1; }
 else
 	@echo "Skipping 'install-xcode' target on $(OS)."
 endif
@@ -34,13 +34,13 @@ endif
 install-brew: install-xcode ## Install Homebrew itself if missing
 	@command -v brew >/dev/null 2>&1 || { echo "Installing Homebrew..."; /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; }
 
-install-deps: install-brew## Install system dependencies via Homebrew
+bootstrap: install-brew ## Bootstrap a fresh machine: Xcode CLT, Homebrew, stow, pre-commit
 	@command -v stow >/dev/null 2>&1 || brew install stow
 	@command -v pre-commit >/dev/null 2>&1 || brew install pre-commit
 
 # install has a recipe only for the stow loop — stow is idempotent so safe to always run.
 # All other prerequisites are real files; Make skips them when already up-to-date.
-install: install-deps install-omz-plugins install-vim-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages
+install: bootstrap install-omz-plugins install-vim-plugins .git/hooks/pre-commit .secrets.baseline ## Stow all packages
 	@for pkg in $(PACKAGES); do \
 		stow --no-folding -t "$$HOME" "$$pkg" && echo "stowed: $$pkg"; \
 	done

@@ -17,7 +17,9 @@ Personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
 ```bash
 git clone git@github.com:jlaska/dotfiles.git
 cd dotfiles
-make install  # bootstraps xcode-select + Homebrew, stows all packages, installs Brewfile
+make bootstrap          # Xcode CLT, Homebrew, stow, pre-commit (also run by `make install`)
+make install            # bootstraps if needed, then stows all packages
+make install-brewfile   # core Brewfile (optional profiles: see Homebrew profiles)
 ```
 
 ## Packages
@@ -87,7 +89,7 @@ Everything else is an opt-in profile in `brew/Brewfile.<name>`:
 | `media` | imagemagick, pandoc, poppler, potrace, qrencode, and the blackhole/buzz casks |
 
 ```bash
-make install-brew                       # install Homebrew itself (if missing); `make install` does this
+make install-brew                       # install Homebrew itself (if missing); `make bootstrap` does this
 make install-brewfile                   # core Brewfile only
 make install-brewfile-<name>            # one profile only (no core), e.g. make install-brewfile-dev
 make install-brewfile install-brewfile-k8s install-brewfile-ai   # core plus several profiles
