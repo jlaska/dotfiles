@@ -1,4 +1,4 @@
-# Network, archive, IoT and legacy utilities. Install: make install-brew PROFILES=extras
+# Network, archive, IoT and legacy utilities. Install: make install-brewfile-extras
 
 tap "tj-smith47/tap"
 

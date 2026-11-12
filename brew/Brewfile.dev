@@ -1,4 +1,4 @@
-# Languages, toolchains, linters and dev services. Install: make install-brew PROFILES=dev
+# Languages, toolchains, linters and dev services. Install: make install-brewfile-dev
 
 # Automate deployment, configuration, and upgrading
 brew "ansible"

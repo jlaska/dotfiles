@@ -1,5 +1,5 @@
 # Core: tools the dotfiles and a working shell/git/GPG/YubiKey setup depend on.
-# Installed by `make install-brew`. Opt-in profiles live in Brewfile.<name>.
+# Installed by `make install-brewfile`. Opt-in profiles live in Brewfile.<name>.
 
 # Simple, modern, secure file encryption
 brew "age"

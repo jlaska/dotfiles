@@ -73,7 +73,7 @@ Packages suffixed `-darwin` or `-linux` are only stowed on the matching OS (`una
 
 ## Homebrew profiles
 
-`make install` (via `make install-brew`) installs only the core `brew/Brewfile`: the tools
+`make install-brewfile` installs only the core `brew/Brewfile`: the tools
 the dotfiles themselves depend on (git, GPG, YubiKey, stow, uv, pre-commit, ripgrep, jq and so on).
 Everything else is an opt-in profile in `brew/Brewfile.<name>`:
 
@@ -87,18 +87,18 @@ Everything else is an opt-in profile in `brew/Brewfile.<name>`:
 | `media` | imagemagick, pandoc, poppler, potrace, qrencode, and the blackhole/buzz casks |
 
 ```bash
-make brew-profiles                      # list available profiles
-make install-brew                       # core only
-make install-brew PROFILES="k8s ai"    # core plus selected profiles
-make install-brew PROFILES=all          # core plus every profile
-make install-brewfile-<profile>         # one profile only (no core), e.g. make install-brewfile-dev
+make install-brew                       # install Homebrew itself (if missing); `make install` does this
+make install-brewfile                   # core Brewfile only
+make install-brewfile-<name>            # one profile only (no core), e.g. make install-brewfile-dev
+make install-brewfile install-brewfile-k8s install-brewfile-ai   # core plus several profiles
+make help                               # lists the available profile names
 ```
 
-`make install-brew PROFILES=...` is kept alongside the per-profile target: it installs core
-first, then installs each named profile exactly as `make install-brewfile-<profile>` does.
+`install-brewfile*` targets never install Homebrew; without `brew` they fail with a hint to run
+`make install-brew`.
 
 Taps live in the profile that needs them. Profiles are discovered from `brew/Brewfile.*`, so a
-new file is picked up automatically (its first line is the description shown by `make brew-profiles`).
+new file is picked up automatically (its first line is the description shown by `make help`).
 `make brew-dump` writes to a temporary file rather than overwriting `brew/Brewfile`; sort new
 entries into the right profile by hand.
 

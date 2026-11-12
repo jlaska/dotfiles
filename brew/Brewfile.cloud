@@ -1,4 +1,4 @@
-# Cloud provider, storage and IaC-scanning CLIs. Install: make install-brew PROFILES=cloud
+# Cloud provider, storage and IaC-scanning CLIs. Install: make install-brewfile-cloud
 
 # Nuke a whole AWS account and delete all its resources
 brew "aws-nuke"

@@ -1,4 +1,4 @@
-# Media/document conversion tools and audio casks (macOS). Install: make install-brew PROFILES=media
+# Media/document conversion tools and audio casks (macOS). Install: make install-brewfile-media
 
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"

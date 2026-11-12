@@ -1,4 +1,4 @@
-# AI agent CLIs and tooling. Install: make install-brew PROFILES=ai
+# AI agent CLIs and tooling. Install: make install-brewfile-ai
 # Note: the nvidia/openshell tap needs `gh auth login` before it can be cloned.
 # Note: the npm entries need the npm global prefix (~/.npm-global, see npm/.npmrc) to exist.
 

@@ -1,4 +1,4 @@
-# Kubernetes, Talos and container tooling. Install: make install-brew PROFILES=k8s
+# Kubernetes, Talos and container tooling. Install: make install-brewfile-k8s
 
 tap "derailed/k9s", trusted: true
 tap "int128/kubelogin"
