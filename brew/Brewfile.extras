@@ -1,0 +1,30 @@
+# Network, archive, IoT and legacy utilities. Install: make install-brew PROFILES=extras
+
+tap "tj-smith47/tap"
+
+# ESP8266 and ESP32 serial bootloader utility
+brew "esptool"
+# C websockets server library
+brew "libwebsockets"
+# Message broker implementing the MQTT protocol
+brew "mosquitto"
+# Mongrel of mail user agents (part elm, pine, mush, mh, etc.)
+brew "mutt"
+# FTP client with an advanced user interface
+brew "ncftp"
+# Port scanning utility for large networks
+brew "nmap"
+# 7-Zip (high compression file archiver) implementation
+brew "p7zip"
+# Implementation of Telnet and SSH
+brew "putty"
+# Monitor data's progress through a pipe
+brew "pv"
+# Command-line interface for https://speedtest.net bandwidth tests
+brew "speedtest-cli"
+# Non-interactive SSH password auth
+brew "sshpass"
+# Command-line unarchiving tools supporting multiple formats
+brew "unar"
+# ISO9660+RR manipulation tool
+brew "xorriso"

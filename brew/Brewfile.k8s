@@ -1,0 +1,46 @@
+# Kubernetes, Talos and container tooling. Install: make install-brew PROFILES=k8s
+
+tap "derailed/k9s", trusted: true
+tap "int128/kubelogin"
+tap "kubeshop/monokle"
+tap "robusta-dev/krr"
+tap "siderolabs/tap"
+
+# Home for the Cluster Management API work, a subproject of sig-cluster-lifecycle
+brew "clusterctl"
+# Key value store for shared configuration and service discovery
+brew "etcd"
+# Run local Kubernetes cluster in Docker
+brew "kind"
+# CLI tool to discover unused Kubernetes resources
+brew "kor"
+# Flexible Kustomize Plugin for SOPS Encrypted Resources
+brew "ksops"
+# SDK for building Kubernetes APIs using CRDs
+brew "kubebuilder"
+# CloudNativePG plugin for kubectl
+brew "kubectl-cnpg"
+# Easily check your clusters for use of deprecated APIs
+brew "kubent"
+# Logging tool for Kubernetes with a real-time web dashboard
+brew "kubetail"
+# Run a Kubernetes cluster locally
+brew "minikube"
+# SDK for building Kubernetes applications
+brew "operator-sdk"
+# Tool for managing OCI containers and pods
+brew "podman" if OS.mac?  # Linux uses distro podman (dnf)
+# Generic machine emulator and virtualizer
+brew "qemu" if OS.mac?  # backs `podman machine`; not needed on Linux
+# Docker registry v2 command-line client
+brew "reg"
+# Configuration helper for talos clusters
+brew "talhelper"
+# Vulnerability scanner for container images, file systems, and Git repos
+brew "trivy"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "derailed/k9s/k9s"
+# A kubectl plugin for Kubernetes OpenID Connect authentication
+brew "int128/kubelogin/kubelogin", trusted: true
+# CLI for out-of-band management of Kubernetes nodes created by Talos
+brew "siderolabs/tap/talosctl", trusted: true

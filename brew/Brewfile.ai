@@ -1,0 +1,23 @@
+# AI agent CLIs and tooling. Install: make install-brew PROFILES=ai
+# Note: the nvidia/openshell tap needs `gh auth login` before it can be cloned.
+# Note: the npm entries need the npm global prefix (~/.npm-global, see npm/.npmrc) to exist.
+
+tap "anomalyco/tap"
+tap "nvidia/openshell"
+tap "openclaw/tap", trusted: true
+tap "sst/tap", "https://github.com/anomalyco/homebrew-tap.git"
+tap "steipete/tap"
+
+# Interact with Google Gemini AI models from the command-line
+brew "gemini-cli"
+# Test your LLM app locally
+brew "promptfoo"
+# The AI coding agent built for the terminal.
+brew "anomalyco/tap/opencode", trusted: true
+# Safe, private runtime for autonomous AI agents
+brew "nvidia/openshell/openshell", trusted: true
+# Google CLI for Gmail, Calendar, Drive, Docs, Sheets, and more
+brew "openclaw/tap/gogcli"
+uv "reverse-api-engineer"
+npm "@earendil-works/pi-coding-agent"
+npm "@kaitranntt/ccs"

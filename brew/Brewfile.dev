@@ -1,0 +1,25 @@
+# Languages, toolchains, linters and dev services. Install: make install-brew PROFILES=dev
+
+# Automate deployment, configuration, and upgrading
+brew "ansible"
+# Checks ansible playbooks for practices and behaviour
+brew "ansible-lint"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# Fast linters runner for Go
+brew "golangci-lint"
+# Deliver Go binaries as fast and easily as possible
+brew "goreleaser"
+# Fast, disk space efficient package manager
+brew "pnpm"
+# Object-relational database system
+brew "postgresql@16"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
+# Extremely fast Python linter, written in Rust
+brew "ruff"
+# Safe, concurrent, practical language
+brew "rust"
+go "github.com/golangci/golangci-lint/v2/cmd/golangci-lint"

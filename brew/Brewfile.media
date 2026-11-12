@@ -1,0 +1,18 @@
+# Media/document conversion tools and audio casks (macOS). Install: make install-brew PROFILES=media
+
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# Convert bitmaps to vector graphics
+brew "potrace"
+# QR Code generation
+brew "qrencode"
+# Virtual Audio Driver
+cask "blackhole-16ch"
+# Virtual Audio Driver
+cask "blackhole-2ch"
+# Transcribe and translate audio
+cask "buzz"

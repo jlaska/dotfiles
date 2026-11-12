@@ -1,0 +1,20 @@
+# Cloud provider, storage and IaC-scanning CLIs. Install: make install-brew PROFILES=cloud
+
+# Nuke a whole AWS account and delete all its resources
+brew "aws-nuke"
+# Official Amazon AWS command-line interface
+brew "awscli"
+# B2 Cloud Storage Command-Line Tools
+brew "b2-tools"
+# Prevent cloud misconfigurations during build-time for IaC tools
+brew "checkov"
+# Cloudflare Tunnel client (formerly Argo Tunnel)
+brew "cloudflared"
+# Replacement for ls, cp and other commands for object storage
+brew "minio-mc"
+# Rsync for cloud storage
+brew "rclone"
+# RedHat OpenShift Service on AWS (ROSA) command-line interface
+brew "rosa-cli"
+# Uplink CLI for the Storj network
+brew "storj-uplink"

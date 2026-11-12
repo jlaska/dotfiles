@@ -27,7 +27,7 @@ make install  # bootstraps xcode-select + Homebrew, stows all packages, installs
 | [Ansible](https://docs.ansible.com/) | `~/.ansible.cfg` |
 | [AWS CLI](https://aws.amazon.com/cli/) | `~/.aws/config` |
 | [rsync](https://rsync.samba.org/) backup | `~/.config/backup/excludes.txt` |
-| [Homebrew](https://brew.sh/) | `~/Brewfile` |
+| [Homebrew](https://brew.sh/) | `~/Brewfile` (core) and `~/Brewfile.<profile>` (optional, see [Homebrew profiles](#homebrew-profiles)) |
 | [Claude Code](https://github.com/anthropics/claude-code) | `~/.claude/settings.json` (shared by all machines), `~/.claude/CLAUDE.md`, `~/.claude/skills/yubikey-operations/`, `~/.claude/mcp/<server>.json` (opt-in MCP servers: `claude-mcp github`, or copy into a project's `.mcp.json`). Backend per invocation: `claude`, `claude-api`, `claude-litellm` in `claude.zsh` |
 | [Containers](https://github.com/containers/common) | `~/.config/containers/registries.conf` |
 | [Docker](https://docs.docker.com/reference/cli/docker/) credential store | `~/.docker/config.json` `credsStore` only, merged by `make install-docker-config` (not stowed) |
@@ -70,6 +70,37 @@ Packages suffixed `-darwin` or `-linux` are only stowed on the matching OS (`una
 > - [vim-gnupg](https://github.com/jamessan/vim-gnupg)
 > - [vim-markdown](https://github.com/plasticboy/vim-markdown)
 > - [vim-python-pep8-indent](https://github.com/hynek/vim-python-pep8-indent)
+
+## Homebrew profiles
+
+`make install` (via `make install-brew`) installs only the core `brew/Brewfile`: the tools
+the dotfiles themselves depend on (git, GPG, YubiKey, stow, uv, pre-commit, ripgrep, jq and so on).
+Everything else is an opt-in profile in `brew/Brewfile.<name>`:
+
+| Profile | Contents |
+|---------|----------|
+| `ai` | AI agent CLIs (gemini-cli, opencode, promptfoo, ...) and npm/uv tools. The `nvidia/openshell` tap needs `gh auth login`, and the npm entries need `~/.npm-global` to exist |
+| `cloud` | awscli, aws-nuke, cloudflared, rclone, b2, minio-mc, storj, rosa, checkov |
+| `dev` | go, rust, python 3.11/3.12, ruff, golangci-lint, goreleaser, pnpm, ansible, postgresql |
+| `extras` | nmap, mutt, putty, archive tools, esptool, mosquitto and other utilities |
+| `k8s` | kubectl plugins, k9s, kind, minikube, podman (+ qemu), talos, trivy and friends |
+| `media` | imagemagick, pandoc, poppler, potrace, qrencode, and the blackhole/buzz casks |
+
+```bash
+make brew-profiles                      # list available profiles
+make install-brew                       # core only
+make install-brew PROFILES="k8s ai"    # core plus selected profiles
+make install-brew PROFILES=all          # core plus every profile
+make install-brewfile-<profile>         # one profile only (no core), e.g. make install-brewfile-dev
+```
+
+`make install-brew PROFILES=...` is kept alongside the per-profile target: it installs core
+first, then installs each named profile exactly as `make install-brewfile-<profile>` does.
+
+Taps live in the profile that needs them. Profiles are discovered from `brew/Brewfile.*`, so a
+new file is picked up automatically (its first line is the description shown by `make brew-profiles`).
+`make brew-dump` writes to a temporary file rather than overwriting `brew/Brewfile`; sort new
+entries into the right profile by hand.
 
 ## New machine setup (keys)
 

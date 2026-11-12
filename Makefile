@@ -6,11 +6,17 @@ PACKAGES           := $(filter-out %-darwin %-linux,$(ALL_PACKAGES)) $(filter %-
 OMZ_PLUGINS        := $(HOME)/.oh-my-zsh/custom/plugins
 OMZ_PLUGIN_TARGETS := $(addprefix $(OMZ_PLUGINS)/,zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
 VIM_PACK           := $(HOME)/.vim/pack/plugins/start
+BREWFILE           := brew/Brewfile
+# Optional profiles: brew/Brewfile.<name>, discovered automatically
+BREW_PROFILES      := $(sort $(patsubst brew/Brewfile.%,%,$(wildcard brew/Brewfile.*)))
+BREW_PROFILE_TARGETS := $(addprefix install-brewfile-,$(BREW_PROFILES))
+PROFILES           ?=
+BREW_DUMP          ?= $(or $(TMPDIR),/tmp)/Brewfile.dump
 VIM_PLUGIN_TARGETS := $(addprefix $(VIM_PACK)/,ansible-vim ctrlp.vim editorconfig-vim flake8-vim syntastic vim-base64 vim-fugitive vim-gnupg vim-markdown vim-python-pep8-indent)
 
 .DEFAULT_GOAL := help
 
-.PHONY: help install-xcode install-brew-cli install-deps install install-brew brew-dump install-omz-plugins install-vim-plugins install-mise install-docker-config import-keys lint pre-commit check
+.PHONY: $(BREW_PROFILE_TARGETS) help install-xcode install-brew-cli install-deps install install-brew brew-profiles brew-dump install-omz-plugins install-vim-plugins install-mise install-docker-config import-keys lint pre-commit check
 
 help: ## Show available targets
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -61,14 +67,39 @@ install-docker-config: ## Set credsStore in ~/.docker/config.json (preserves oth
 		command mv -f $(DOCKER_CONFIG_FILE).tmp $(DOCKER_CONFIG_FILE) && \
 		echo "docker credsStore: $$(jq -r .credsStore $(DOCKER_CONFIG_FILE))"
 
-install-brew: ## Install Homebrew packages from Brewfile
+install-brew: ## Install core Brewfile; opt in with PROFILES="k8s ai" (or "all"), or make install-brewfile-<profile>
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
-	brew bundle install --file=brew/Brewfile --no-upgrade
+	@profiles="$(PROFILES)"; [ "$$profiles" = all ] && profiles="$(BREW_PROFILES)"; \
+	for p in $$profiles; do \
+		[ -f brew/Brewfile.$$p ] || { echo "Error: unknown profile '$$p' (available: $(BREW_PROFILES))"; exit 1; }; \
+	done; \
+	brew bundle install --file=$(BREWFILE) --no-upgrade || exit $$?; \
+	for p in $$profiles; do \
+		$(call brew_profile,$$p) || exit $$?; \
+	done
 
-brew-dump: ## Refresh Brewfile from currently installed packages
+# Shared by install-brew PROFILES=... and install-brewfile-<name> (no $(MAKE) here: `make -n` would run it).
+brew_profile = { echo "==> profile: $(1)"; brew bundle install --file=brew/Brewfile.$(1) --no-upgrade; }
+
+# install-brewfile-<name> installs brew/Brewfile.<name> only (no core). Known profiles use a static
+# pattern so they can be .PHONY; the fallback rule reports unknown names.
+$(BREW_PROFILE_TARGETS): install-brewfile-%:
 	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
-	brew bundle dump --file=brew/Brewfile --describe --force
-	@grep -q 'if OS.mac?' brew/Brewfile || echo "WARNING: dump dropped OS guards (podman, qemu); re-add 'if OS.mac?' before committing"
+	@$(call brew_profile,$*)
+
+install-brewfile-%:
+	@echo "Error: unknown profile '$*' (available: $(BREW_PROFILES))"; exit 1
+
+brew-profiles: ## List optional Brewfile profiles
+	@echo "Core: $(BREWFILE) (make install-brew)"
+	@echo "Optional profiles (make install-brewfile-<name>, or make install-brew PROFILES=\"<name> ...\" / PROFILES=all):"
+	@for p in $(BREW_PROFILES); do printf "  %-10s %s\n" "$$p" "$$(head -1 brew/Brewfile.$$p | sed 's/^# //; s/ Install:.*//')"; done
+
+brew-dump: ## Dump installed packages to a temp Brewfile for sorting into brew/Brewfile*
+	@command -v brew >/dev/null || { echo "Error: Homebrew not found"; exit 1; }
+	brew bundle dump --file=$(BREW_DUMP) --describe --force
+	@grep -q 'if OS.mac?' $(BREW_DUMP) || echo "WARNING: dump dropped OS guards (podman, qemu); re-add 'if OS.mac?' when sorting"
+	@echo "Wrote $(BREW_DUMP); diff against brew/Brewfile* and copy new entries into the right profile."
 
 .git/hooks/pre-commit:
 	@command -v pre-commit >/dev/null 2>&1 && pre-commit install || echo "pre-commit not yet installed, skipping hook setup"
