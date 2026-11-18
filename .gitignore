@@ -36,6 +36,8 @@ hosts.yml
 
 # Machine-local overrides
 *.local
+# ...but not the XDG ~/.local/ directory a package stows into
+!.local/
 *.local.json
 *.local.yaml
 *.local.yml

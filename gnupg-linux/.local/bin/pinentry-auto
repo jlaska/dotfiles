@@ -1,0 +1,8 @@
+#!/bin/sh
+# gpg-agent runs in the desktop's systemd user session, so it always sees WAYLAND_DISPLAY and
+# Fedora's /usr/bin/pinentry picks pinentry-gnome3. Shells that can't reach the desktop (see
+# yubikey.zsh) set PINENTRY_USER_DATA=USE_CURSES=1, which gpg forwards per request.
+case "$PINENTRY_USER_DATA" in
+  *USE_CURSES=1*) exec /usr/bin/pinentry-curses "$@" ;;
+esac
+exec /usr/bin/pinentry "$@"

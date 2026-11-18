@@ -36,7 +36,7 @@ make install-brewfile   # core Brewfile (optional profiles: see Homebrew profile
 | [Finicky](https://github.com/johnste/finicky) | `~/.finicky.js` |
 | [Git](https://git-scm.com/) | `~/.gitconfig` (includes untracked `~/.gitconfig.local`), `~/.config/git/ignore` |
 | [GitHub CLI](https://cli.github.com/) | `~/.config/gh/config.yml` |
-| [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,dirmngr}.conf`; `~/.gnupg/{gpg-agent,scdaemon}.conf` from `gnupg-darwin` / `gnupg-linux` |
+| [GnuPG](https://gnupg.org/) | `~/.gnupg/{gpg,dirmngr}.conf`; `~/.gnupg/{gpg-agent,scdaemon}.conf` from `gnupg-darwin` / `gnupg-linux`; Linux `~/.local/bin/pinentry-auto` (curses in SSH shells, `pinentry-gnome3` otherwise) |
 | [LDAP](https://www.openldap.org/) | `~/.ldaprc` |
 | [mise](https://mise.jdx.dev/) | `~/.config/mise/config.toml` (runtimes and CLI tools, incl. the Linux `docker-credential-secretservice` helper; `make install-mise`) |
 | [npm](https://www.npmjs.com/) | `~/.npmrc` |

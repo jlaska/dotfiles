@@ -3,6 +3,16 @@
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
+# Linux: gpg-agent always sees the desktop, so pinentry-auto needs telling when this shell can't
+# (SSH without a forwarded display, e.g. herdr started over SSH). Set a value in both cases: an
+# unset variable isn't forwarded, so a curses value claimed by updatestartuptty would stick.
+if [[ $OSTYPE == linux* ]]; then
+  if [[ -n $SSH_CONNECTION && -z $WAYLAND_DISPLAY && -z $DISPLAY ]]; then
+    export PINENTRY_USER_DATA=USE_CURSES=1
+  else
+    export PINENTRY_USER_DATA=USE_GUI=1
+  fi
+fi
 # Only a real terminal should claim pinentry; non-interactive shells (scripts, agents) would
 # otherwise point it at a tty nobody reads and SSH auth silently times out.
 [[ -t 0 ]] && gpg-connect-agent updatestartuptty /bye > /dev/null
