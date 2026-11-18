@@ -8,7 +8,7 @@ gpgconf --launch gpg-agent
 # unset variable isn't forwarded, so a curses value claimed by updatestartuptty would stick.
 if [[ $OSTYPE == linux* ]]; then
   if [[ -n $SSH_CONNECTION && -z $WAYLAND_DISPLAY && -z $DISPLAY ]]; then
-    export PINENTRY_USER_DATA=USE_CURSES=1
+    export PINENTRY_USER_DATA="USE_CURSES=1 TTY=$GPG_TTY"
   else
     export PINENTRY_USER_DATA=USE_GUI=1
   fi
