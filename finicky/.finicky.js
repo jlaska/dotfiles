@@ -47,7 +47,7 @@ export default {
     },
     /* Anything Supa */
     {
-      match: finicky.matchHostnames(/(rippling|hibob|workleap|avoma|hikizuna|vanta|okta)\.com/),
+      match: finicky.matchHostnames(/(rippling|hibob|workleap|avoma|hikizuna|vanta|okta|ashbyhq)\.com/),
       browser: workBrowser
     },
     {
